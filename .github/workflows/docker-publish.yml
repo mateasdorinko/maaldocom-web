@@ -6,14 +6,9 @@ name: Docker Image Registry Publish
 # documentation.
 
 on:
-  schedule:
-    - cron: '34 23 * * *'
-  push:
-    branches: [ "main" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["docker-image"]
+    types: [completed]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -24,6 +19,7 @@ env:
 
 jobs:
   build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     runs-on: ubuntu-latest
     permissions:
