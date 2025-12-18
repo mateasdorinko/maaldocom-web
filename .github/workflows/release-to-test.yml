@@ -1,0 +1,14 @@
+name: Release to Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release-to-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Say hi
+        run: echo "hi..."
+
+      
