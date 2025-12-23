@@ -1,21 +1,25 @@
-name: Release to Production
+name: Deploy to Dev
 
 env:
-  AZURE_WEBAPP_NAME: app-maaldocomweb-prd-cus
+  AZURE_WEBAPP_NAME: app-maaldocomweb-dev-cus
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build For Release, Package Docker Image, & Publish To Registry"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
 
 jobs:
-  release-to-test:
+  release-to-dev:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: none
     runs-on: ubuntu-latest
     environment:
-      name: 'Prod'
+      name: 'Dev'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -27,5 +31,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PRD_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_DEV_WEBAPP_PUBLISH_PROFILE }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
