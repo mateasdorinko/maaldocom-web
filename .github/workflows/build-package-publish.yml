@@ -43,18 +43,3 @@ jobs:
           push: true
           tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
           file: ./Dockerfile
-
-
-#      - name: Setup .NET
-#        uses: actions/setup-dotnet@v4
-#        with:
-#          dotnet-version: '10.0.x'
-
-#      - name: Restore dependencies
-#        run: dotnet restore
-
-#      - name: Build solution
-#        run: dotnet build --no-restore --configuration Release
-
-#      - name: Build Docker image
-#        run: docker build . --file Dockerfile --tag maaldocom-web:latest
