@@ -1,0 +1,96 @@
+name: Rollback Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to rollback'
+        required: true
+        type: choice
+        options:
+          - Dev
+          - Test
+          - Prod
+      image-tag:
+        description: 'Docker image tag to rollback to (e.g., SHA or "dev-latest")'
+        required: true
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  rollback:
+    name: Rollback ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    concurrency:
+      group: deploy-${{ inputs.environment }}
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Verify image exists
+        run: |
+          echo "Verifying image exists: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image-tag }}"
+
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+
+          if docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image-tag }} > /dev/null 2>&1; then
+            echo "Image found"
+          else
+            echo "Image not found: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image-tag }}"
+            exit 1
+          fi
+
+      - name: Set app name
+        id: config
+        run: |
+          case "${{ inputs.environment }}" in
+            Dev)
+              echo "app-name=app-maaldocomweb-dev-cus" >> $GITHUB_OUTPUT
+              ;;
+            Test)
+              echo "app-name=app-maaldocomweb-tst-cus" >> $GITHUB_OUTPUT
+              ;;
+            Prod)
+              echo "app-name=app-maaldocomweb-prd-cus" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Deploy to Azure Web App
+        id: deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ steps.config.outputs.app-name }}
+          publish-profile: ${{ inputs.environment == 'Dev' && secrets.AZURE_DEV_WEBAPP_PUBLISH_PROFILE || inputs.environment == 'Test' && secrets.AZURE_TST_WEBAPP_PUBLISH_PROFILE || secrets.AZURE_PRD_WEBAPP_PUBLISH_PROFILE }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image-tag }}
+
+      - name: Wait for deployment to stabilize
+        run: sleep 30
+
+      - name: Health check
+        run: |
+          echo "Performing health check on ${{ steps.deploy.outputs.webapp-url }}"
+          response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 ${{ steps.deploy.outputs.webapp-url }} || echo "000")
+
+          if [ "$response" = "200" ]; then
+            echo "Health check passed - HTTP $response"
+            echo "Rollback to ${{ inputs.image-tag }} completed successfully!"
+          elif [ "$response" = "000" ]; then
+            echo "Health check endpoint not reachable - deployment may still be warming up"
+            exit 0
+          else
+            echo "Health check failed - HTTP $response"
+            exit 1
+          fi

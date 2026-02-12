@@ -1,0 +1,123 @@
+import { notFound, redirect } from 'next/navigation';
+import type { Metadata } from 'next';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import SecondaryLayout from '@/components/SecondaryLayout';
+import MediaAlbumViewer from '@/components/MediaAlbumViewer';
+import { mediaAlbumsApi, mapApiError } from '@/server';
+import type { GetMediaAlbumDetailResponse, GetMediaAlbumResponse } from '@/types/api';
+
+export const revalidate = 600;
+
+interface PageProps {
+  params: Promise<{ urlfriendlyname: string }>;
+}
+
+/** Fetch the album detail. Returns null on 404. */
+async function fetchAlbum(slug: string): Promise<GetMediaAlbumDetailResponse | null> {
+  try {
+    const { data } = await mediaAlbumsApi.getMediaAlbumByName(slug);
+    return data;
+  } catch (error) {
+    const { status } = mapApiError(error);
+    if (status === 404) return null;
+    throw error;
+  }
+}
+
+/** Fetch all albums for the sidebar. */
+async function fetchAllAlbums(): Promise<GetMediaAlbumResponse[]> {
+  try {
+    const { data } = await mediaAlbumsApi.listMediaAlbums();
+    return data;
+  } catch {
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { urlfriendlyname } = await params;
+  const album = await fetchAlbum(urlfriendlyname);
+  if (!album) return { title: 'Not Found' };
+
+  return {
+    title: album.name,
+    description: album.description || `Media album: ${album.name}`,
+    openGraph: {
+      title: album.name ?? undefined,
+      description: album.description ?? undefined,
+      type: 'website',
+      images: album.thumbHref ? [{ url: album.thumbHref }] : undefined,
+    },
+  };
+}
+
+export default async function MediaAlbumDetailPage({ params }: PageProps) {
+  const { urlfriendlyname } = await params;
+
+  const [album, allAlbums] = await Promise.all([fetchAlbum(urlfriendlyname), fetchAllAlbums()]);
+
+  if (!album) notFound();
+
+  // Redirect from GUID (or any non-canonical slug) to the canonical URL
+  if (album.urlFriendlyName && album.urlFriendlyName !== urlfriendlyname) {
+    redirect(`/media-albums/${album.urlFriendlyName}`);
+  }
+
+  const otherAlbums = allAlbums.filter((a) => a.id !== album.id);
+
+  return (
+    <SecondaryLayout
+      sidebar={
+        <>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+            More Media Albums
+          </Typography>
+          {otherAlbums.length === 0 ? (
+            <Typography variant="body2" color="text.secondary">
+              No other albums.
+            </Typography>
+          ) : (
+            <List disablePadding dense>
+              {otherAlbums.map((a) => (
+                <ListItem key={a.id} disablePadding>
+                  <ListItemButton
+                    href={`/media-albums/${a.urlFriendlyName}`}
+                    sx={{ borderRadius: 1, py: 0.5 }}
+                  >
+                    <Typography variant="body2" color="text.primary" sx={{ fontSize: '0.875rem' }}>
+                      {a.name}
+                    </Typography>
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+        </>
+      }
+    >
+      <Typography
+        variant="h2"
+        component="h1"
+        gutterBottom
+        color="primary"
+        sx={{ fontSize: { xs: '2rem', sm: '2.75rem', md: '3.75rem' } }}
+      >
+        {album.name}
+      </Typography>
+
+      {album.description && (
+        <Typography variant="body1" color="text.secondary" paragraph>
+          {album.description}
+        </Typography>
+      )}
+
+      <MediaAlbumViewer
+        media={album.media ?? []}
+        albumUrlFriendlyName={album.urlFriendlyName ?? urlfriendlyname}
+      />
+    </SecondaryLayout>
+  );
+}
