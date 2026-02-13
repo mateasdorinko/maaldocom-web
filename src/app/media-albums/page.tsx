@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { mediaAlbumsApi } from '@/server';
 import type { GetMediaAlbumResponse } from '@/types/api';
@@ -37,6 +39,51 @@ export default async function MediaAlbumsPage() {
         sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
       >
         Media Albums
+      </Typography>
+
+      <Typography variant="subtitle1" color="text.secondary" gutterBottom sx={{ mb: 3 }}>
+        A curated collection of visual media
+      </Typography>
+
+      <Paper
+        component="a"
+        href="/media-albums/hotshots"
+        elevation={0}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          px: 2,
+          py: 1,
+          mb: 3,
+          borderRadius: 2,
+          bgcolor: 'navBar',
+          color: '#fff',
+          textDecoration: 'none',
+          '&:hover': { opacity: 0.92 },
+        }}
+      >
+        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+          HotShots
+        </Typography>
+        <Button
+          variant="outlined"
+          size="small"
+          sx={{
+            color: '#fff',
+            borderColor: 'rgba(255,255,255,0.6)',
+            textTransform: 'none',
+            flexShrink: 0,
+            '&:hover': { borderColor: '#fff', bgcolor: 'rgba(255,255,255,0.1)' },
+          }}
+        >
+          View Album
+        </Button>
+      </Paper>
+
+      <Typography variant="h5" component="h2" gutterBottom color="primary">
+        Featured Albums
       </Typography>
 
       {albums.length === 0 ? (
