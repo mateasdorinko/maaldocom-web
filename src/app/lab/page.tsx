@@ -24,10 +24,10 @@ export default async function LabPage() {
         >
           Lab
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 480 }}>
+        <Typography variant="body1" color="text.secondary">
           This area contains experiments, tools, and side projects. Sign in to access.
         </Typography>
-        <Button variant="contained" href="/auth/login" size="large" sx={{ mt: 1 }}>
+        <Button variant="contained" href="/auth/login" size="large" sx={{ mt: 3 }}>
           Sign in
         </Button>
       </Box>

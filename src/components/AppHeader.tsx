@@ -131,7 +131,7 @@ export default function AppHeader() {
                 href="/auth/logout"
                 sx={{ fontSize: '0.75rem', textTransform: 'none' }}
               >
-                Logout {user.name}
+                Sign out {user.name}
               </Button>
             ) : (
               <Button
@@ -139,7 +139,7 @@ export default function AppHeader() {
                 href="/auth/login"
                 sx={{ fontSize: '0.75rem', textTransform: 'none' }}
               >
-                Login
+                Sign in
               </Button>
             ))}
         </Toolbar>
@@ -176,14 +176,14 @@ export default function AppHeader() {
                 (user ? (
                   <ListItemButton component="a" href="/auth/logout">
                     <ListItemText
-                      primary="Logout"
+                      primary="Sign out"
                       slotProps={{ primary: { fontSize: '0.85rem' } }}
                     />
                   </ListItemButton>
                 ) : (
                   <ListItemButton component="a" href="/auth/login">
                     <ListItemText
-                      primary="Login"
+                      primary="Sign in"
                       slotProps={{ primary: { fontSize: '0.85rem' } }}
                     />
                   </ListItemButton>
