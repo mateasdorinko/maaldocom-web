@@ -25,7 +25,7 @@ const audiowide = Audiowide({
 export const metadata: Metadata = {
   title: {
     default: 'maaldo.com',
-    template: '%s | maaldo.com',
+    template: 'maaldo.com | %s',
   },
   description: 'Personal portfolio, media albums, writings, and more.',
 };

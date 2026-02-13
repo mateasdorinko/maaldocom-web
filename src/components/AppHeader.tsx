@@ -38,81 +38,103 @@ export default function AppHeader() {
 
   return (
     <>
-      <AppBar position="sticky" sx={{ bgcolor: theme.palette.navBar }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            edge="start"
-            onClick={() => setDrawerOpen(true)}
-            sx={{ mr: 2, display: { md: 'none' } }}
-            aria-label="Open navigation menu"
-          >
-            <MenuIcon />
-          </IconButton>
+      {/* Logo + domain name row above the nav bar */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: { xs: 1, sm: 1.25 },
+          px: { xs: 1.25, sm: 1 },
+          py: { xs: '7px', sm: '7px' },
+        }}
+      >
+        {/* Hamburger menu on mobile */}
+        <IconButton
+          onClick={() => setDrawerOpen(true)}
+          sx={{ display: { md: 'none' }, color: theme.palette.text.primary, p: 0.5 }}
+          aria-label="Open navigation menu"
+        >
+          <MenuIcon />
+        </IconButton>
 
+        <Box
+          component={Link}
+          href="/"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: { xs: 1, sm: 1.25 },
+            color: 'inherit',
+            textDecoration: 'none',
+          }}
+        >
           <Box
-            component={Link}
-            href="/"
+            component="img"
+            src="/logo.svg"
+            alt="maaldo logo"
+            sx={{ display: 'block', width: { xs: 32, sm: 40 }, height: { xs: 32, sm: 40 } }}
+          />
+          <Typography
+            component="span"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-              flexGrow: 1,
-              color: 'inherit',
-              textDecoration: 'none',
+              fontFamily: 'var(--font-audiowide)',
+              fontWeight: 400,
+              fontSize: { xs: '28px', sm: '34px', md: '40px' },
             }}
           >
-            <Box
-              component="img"
-              src="/logo.svg"
-              alt="maaldo logo"
-              sx={{ width: { xs: 28, sm: 34 }, height: { xs: 28, sm: 34 } }}
-            />
-            <Typography
-              variant="h6"
-              component="span"
+            maaldo
+          </Typography>
+        </Box>
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <IconButton
+          onClick={toggleMode}
+          sx={{ color: theme.palette.text.primary }}
+          aria-label="Toggle theme"
+        >
+          {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+        </IconButton>
+      </Box>
+
+      {/* Navigation bar - desktop only */}
+      <AppBar
+        position="sticky"
+        elevation={2}
+        sx={{ bgcolor: theme.palette.navBar, display: { xs: 'none', md: 'flex' } }}
+      >
+        <Toolbar variant="dense" sx={{ gap: 0.5 }}>
+          {navItems.map((item) => (
+            <Button
+              key={item.href}
+              component={Link}
+              href={item.href}
+              color="inherit"
               sx={{
-                fontFamily: 'var(--font-audiowide)',
-                fontWeight: 400,
-                fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                fontWeight: pathname === item.href ? 600 : 400,
+                bgcolor: pathname === item.href ? 'rgba(255,255,255,0.15)' : 'transparent',
+                borderRadius: 2,
+                '&:hover': {
+                  bgcolor:
+                    pathname === item.href ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.08)',
+                },
               }}
             >
-              maaldo
-            </Typography>
-          </Box>
-
-          {/* Desktop nav */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5, alignItems: 'center' }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.href}
-                component={Link}
-                href={item.href}
-                color="inherit"
-                sx={{
-                  fontWeight: pathname === item.href ? 700 : 400,
-                  textDecoration: pathname === item.href ? 'underline' : 'none',
-                  textUnderlineOffset: 4,
-                }}
-              >
-                {item.label}
+              {item.label}
+            </Button>
+          ))}
+          {/*
+          {!isLoading &&
+            (user ? (
+              <Button color="inherit" href="/auth/logout">
+                Logout
+              </Button>
+            ) : (
+              <Button color="inherit" href="/auth/login">
+                Login
               </Button>
             ))}
-            {!isLoading &&
-              (user ? (
-                <Button color="inherit" href="/auth/logout">
-                  Logout
-                </Button>
-              ) : (
-                <Button color="inherit" href="/auth/login">
-                  Login
-                </Button>
-              ))}
-          </Box>
-
-          <IconButton color="inherit" onClick={toggleMode} aria-label="Toggle theme">
-            {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
-          </IconButton>
+            */}
         </Toolbar>
       </AppBar>
 

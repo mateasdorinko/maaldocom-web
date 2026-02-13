@@ -9,7 +9,7 @@ import { tagsApi } from '@/server';
 import type { GetTagResponse } from '@/types/api';
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'maaldo.com | Home',
   description: 'Personal portfolio, media albums, writings, and more.',
 };
 

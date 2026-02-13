@@ -25,27 +25,14 @@ export default function RandomKnowledge() {
 
   return (
     <Paper variant="outlined" sx={{ p: 3, my: 2 }}>
+      {data.title && (
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          - {data.title}
+        </Typography>
+      )}
       {data.quote && (
         <Typography variant="body1" component="blockquote" sx={{ fontStyle: 'italic', m: 0 }}>
           &ldquo;{data.quote}&rdquo;
-        </Typography>
-      )}
-      {data.title && (
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          &mdash;{' '}
-          {data.href ? (
-            <MuiLink
-              href={data.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              color="inherit"
-              underline="hover"
-            >
-              {data.title}
-            </MuiLink>
-          ) : (
-            data.title
-          )}
         </Typography>
       )}
     </Paper>
