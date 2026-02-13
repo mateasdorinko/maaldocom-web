@@ -10,20 +10,27 @@ import axios from 'axios';
 import type { AxiosError, AxiosInstance } from 'axios';
 import { KnowledgeApi, TagsApi, MediaAlbumsApi, SystemApi } from './generated';
 
-const API_BASE_URL = process.env.API_BASE_URL;
-
-if (!API_BASE_URL) {
-  throw new Error('API_BASE_URL environment variable is not set');
+function getBaseURL(): string {
+  const url = process.env.API_BASE_URL;
+  if (!url) {
+    throw new Error('API_BASE_URL environment variable is not set');
+  }
+  return url;
 }
 
 /** Pre-configured Axios instance for server-side API calls */
 export const apiClient: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
   timeout: 15_000,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
+});
+
+// Resolve API_BASE_URL at request time so the module can be imported during build
+apiClient.interceptors.request.use((config) => {
+  config.baseURL = getBaseURL();
+  return config;
 });
 
 // ── Typed API instances (used by route handlers) ──────────────────────
