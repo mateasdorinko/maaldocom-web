@@ -1,6 +1,5 @@
 'use client';
 
-import MuiLink from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';

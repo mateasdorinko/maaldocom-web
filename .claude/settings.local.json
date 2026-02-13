@@ -12,7 +12,8 @@
       "Bash(npm ls:*)",
       "Bash(node -e:*)",
       "Bash(npm run dev:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm run typecheck:*)"
     ]
   }
 }

@@ -19,7 +19,7 @@ export default function WritingsPage() {
         Writings
       </Typography>
       <Typography variant="body1" color="text.secondary">
-        Coming soon.
+        Coming at some point.... on the backlog.
       </Typography>
     </>
   );
