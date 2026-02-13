@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
@@ -80,9 +81,51 @@ export default async function HomePage() {
       >
         Welcome
       </Typography>
-      <Typography variant="body1" color="text.secondary">
-        Personal portfolio, media albums, writings, and more.
+      {/* Desktop: float right alongside paragraphs */}
+      <Box
+        component="img"
+        src="/images/fam.jpg"
+        alt="Family"
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          float: 'right',
+          width: { sm: 250, md: 350 },
+          height: 'auto',
+          borderRadius: 2,
+          ml: 3,
+          mb: 2,
+        }}
+      />
+      <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
+        Hi, I&apos;m Matt — a dad to two boys, husband, and tinkerer at heart.
       </Typography>
+      <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
+        I enjoy solving problems and building things that are thoughtful, reliable, and
+        well-designed. I&apos;m drawn to sophistication through simplicity — creating systems that
+        are powerful without being overcomplicated. By day I&apos;m a developer; in my free time,
+        you&apos;ll usually find me hacking on side projects, building and refining software, or
+        experimenting in my homelab. I enjoy understanding how things work under the hood — and
+        making them better.
+      </Typography>
+      <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
+        I&apos;m committed to living a healthy, disciplined life and continually improving myself.
+        Above all, I value faith, family, and building things that last — in technology and in life.
+        I strive to do meaningful work, stay curious, and show up well — at home first, and
+        everywhere else after.
+      </Typography>
+      {/* Mobile: below paragraphs */}
+      <Box
+        component="img"
+        src="/images/fam.jpg"
+        alt="Family"
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          width: '100%',
+          height: 'auto',
+          borderRadius: 2,
+          mb: 2,
+        }}
+      />
       <RandomKnowledge />
     </SecondaryLayout>
   );

@@ -23,17 +23,22 @@ export default function RandomKnowledge() {
   }
 
   return (
-    <Paper variant="outlined" sx={{ p: 3, my: 2 }}>
-      {data.title && (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          - {data.title}
-        </Typography>
-      )}
-      {data.quote && (
-        <Typography variant="body1" component="blockquote" sx={{ fontStyle: 'italic', m: 0 }}>
-          &ldquo;{data.quote}&rdquo;
-        </Typography>
-      )}
-    </Paper>
+    <>
+      <Typography variant="h6" gutterBottom sx={{ mb: 1, fontWeight: 500, color: 'tertiary.main' }}>
+        How about a little random knowledge...
+      </Typography>
+      <Paper variant="outlined" sx={{ p: 3, my: 2, mt: 3 }}>
+        {data.title && (
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            - {data.title}
+          </Typography>
+        )}
+        {data.quote && (
+          <Typography variant="body1" component="blockquote" sx={{ fontStyle: 'italic', m: 0 }}>
+            &ldquo;{data.quote}&rdquo;
+          </Typography>
+        )}
+      </Paper>
+    </>
   );
 }

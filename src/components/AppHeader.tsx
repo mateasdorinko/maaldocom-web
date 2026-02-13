@@ -25,8 +25,8 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Media Albums', href: '/media-albums' },
   { label: 'Writings', href: '/writings' },
-  { label: 'Contact', href: '/contact' },
   { label: 'Lab', href: '/lab' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function AppHeader() {
@@ -70,7 +70,7 @@ export default function AppHeader() {
         >
           <Box
             component="img"
-            src="/logo.svg"
+            src="/images/logo.svg"
             alt="maaldo logo"
             sx={{ display: 'block', width: { xs: 32, sm: 40 }, height: { xs: 32, sm: 40 } }}
           />
@@ -123,18 +123,25 @@ export default function AppHeader() {
               {item.label}
             </Button>
           ))}
-          {/*
+          <Box sx={{ flexGrow: 1 }} />
           {!isLoading &&
             (user ? (
-              <Button color="inherit" href="/auth/logout">
-                Logout
+              <Button
+                color="inherit"
+                href="/auth/logout"
+                sx={{ fontSize: '0.75rem', textTransform: 'none' }}
+              >
+                Logout {user.name}
               </Button>
             ) : (
-              <Button color="inherit" href="/auth/login">
+              <Button
+                color="inherit"
+                href="/auth/login"
+                sx={{ fontSize: '0.75rem', textTransform: 'none' }}
+              >
                 Login
               </Button>
             ))}
-            */}
         </Toolbar>
       </AppBar>
 
@@ -142,7 +149,12 @@ export default function AppHeader() {
       <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <Box sx={{ width: 250 }} role="navigation" onClick={() => setDrawerOpen(false)}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, p: 2 }}>
-            <Box component="img" src="/logo.svg" alt="maaldo logo" sx={{ width: 28, height: 28 }} />
+            <Box
+              component="img"
+              src="/images/logo.svg"
+              alt="maaldo logo"
+              sx={{ width: 28, height: 28 }}
+            />
             <Typography
               variant="h6"
               component="span"
@@ -163,11 +175,17 @@ export default function AppHeader() {
               {!isLoading &&
                 (user ? (
                   <ListItemButton component="a" href="/auth/logout">
-                    <ListItemText primary="Logout" />
+                    <ListItemText
+                      primary="Logout"
+                      slotProps={{ primary: { fontSize: '0.85rem' } }}
+                    />
                   </ListItemButton>
                 ) : (
                   <ListItemButton component="a" href="/auth/login">
-                    <ListItemText primary="Login" />
+                    <ListItemText
+                      primary="Login"
+                      slotProps={{ primary: { fontSize: '0.85rem' } }}
+                    />
                   </ListItemButton>
                 ))}
             </ListItem>

@@ -14,13 +14,13 @@ interface ThemeContextValue {
 }
 
 export const ThemeContext = React.createContext<ThemeContextValue>({
-  mode: 'light',
+  mode: 'dark',
   toggleMode: () => {},
 });
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-  const [mode, setMode] = React.useState<ThemeMode>(prefersDark ? 'dark' : 'light');
+  const prefersLight = useMediaQuery('(prefers-color-scheme: light)');
+  const [mode, setMode] = React.useState<ThemeMode>(prefersLight ? 'light' : 'dark');
 
   const toggleMode = React.useCallback(() => {
     setMode((prev) => (prev === 'light' ? 'dark' : 'light'));

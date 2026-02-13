@@ -14,23 +14,18 @@ export default async function LabPage() {
 
   if (!session) {
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '60vh',
-          gap: 2,
-          textAlign: 'center',
-          px: 2,
-        }}
-      >
-        <Typography variant="h4" component="h1">
+      <Box>
+        <Typography
+          variant="h3"
+          component="h1"
+          gutterBottom
+          color="primary"
+          sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+        >
           Lab
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 480 }}>
-          This area contains experiments, tools, and side projects. Sign in to access the lab.
+          This area contains experiments, tools, and side projects. Sign in to access.
         </Typography>
         <Button variant="contained" href="/auth/login" size="large" sx={{ mt: 1 }}>
           Sign in
@@ -40,8 +35,14 @@ export default async function LabPage() {
   }
 
   return (
-    <Box sx={{ py: 2 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+    <Box>
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+        color="primary"
+        sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+      >
         Lab
       </Typography>
       <Typography variant="body1" color="text.secondary">
