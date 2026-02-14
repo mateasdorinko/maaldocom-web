@@ -101,17 +101,17 @@ export default async function HomePage() {
       </Typography>
       <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
         I enjoy solving problems and building things that are thoughtful, reliable, and
-        well-designed. I&apos;m drawn to sophistication through simplicity, and creating systems that
-        are powerful without being overcomplicated. By day I&apos;m a developer; in my free time,
-        you&apos;ll usually find me hacking on side projects, building and refining software, or
-        experimenting in my homelab. I enjoy understanding how things work under the hood and
-        making them better.
+        well-designed. I&apos;m drawn to sophistication through simplicity, and creating systems
+        that are powerful without being overcomplicated. By day I&apos;m a developer; in my free
+        time, time, you&apos;ll usually find me hacking on side projects, building and refining
+        software, experimenting in my homelab. I enjoy understanding how things work under the hood
+        and making them better.
       </Typography>
       <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
-        I&apos;m committed to living a healthy, disciplined life and continually improving myself.
-        Above all, I value faith, family, and building things that last — in technology and in life.
-        I strive to do meaningful work, stay curious, and show up well at home first, and
-        everywhere else after.
+        I&apos;m committed to living a healthy, disciplined life (unless there are cookies around)
+        and continually improving myself. Above all, I value faith, family, and building things that
+        last - in technology and in life. I strive to do meaningful work, stay curious, and show up
+        well at home first, and everywhere else after.
       </Typography>
       {/* Mobile: below paragraphs */}
       <Box
