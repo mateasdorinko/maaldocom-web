@@ -21,6 +21,7 @@ export async function register() {
     const { resourceFromAttributes } = await import('@opentelemetry/resources');
     const { ATTR_SERVICE_NAME } = await import('@opentelemetry/semantic-conventions');
     const { logs, SeverityNumber } = await import('@opentelemetry/api-logs');
+    const { HttpInstrumentation } = await import('@opentelemetry/instrumentation-http');
 
     const sdk = new NodeSDK({
       resource: resourceFromAttributes({
@@ -31,6 +32,7 @@ export async function register() {
         exporter: new OTLPMetricExporter(),
       }),
       logRecordProcessors: [new BatchLogRecordProcessor(new OTLPLogExporter())],
+      instrumentations: [new HttpInstrumentation()],
     });
 
     sdk.start();
