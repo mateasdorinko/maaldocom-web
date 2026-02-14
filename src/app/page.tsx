@@ -108,7 +108,7 @@ export default async function HomePage() {
         and making them better.
       </Typography>
       <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
-        I&apos;m committed to living a healthy, disciplined life (unless there are cookies around)
+        I&apos;m committed to living a healthy, disciplined life (unless there are cookies around),
         and continually improving myself. Above all, I value faith, family, and building things that
         last - in technology and in life. I strive to do meaningful work, stay curious, and show up
         well at home first, and everywhere else after.
