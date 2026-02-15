@@ -4,7 +4,6 @@
 
 [![CI/CD Pipeline](https://github.com/mateasdorinko/maaldocom-web/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-web/actions/workflows/ci-cd.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateasdorinko_maaldocom-web&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateasdorinko_maaldocom-web)
-![Code Coverage](https://raw.githubusercontent.com/mateasdorinko/maaldocom-web/badges/badges/badge_linecoverage.svg)
 [![Deploy to Test](https://github.com/mateasdorinko/maaldocom-web/actions/workflows/deploy-test.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-web/actions/workflows/deploy-test.yml)
 [![Deploy to Production](https://github.com/mateasdorinko/maaldocom-web/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/mateasdorinko/maaldocom-web/actions/workflows/deploy-prod.yml)
 
