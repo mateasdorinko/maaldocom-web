@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Chip from '@mui/material/Chip';
 import DownloadIcon from '@mui/icons-material/Download';
 import type { GetMediaResponse } from '@/types/api';
 
@@ -273,6 +274,45 @@ export default function MediaAlbumViewer({
                     objectFit: 'contain',
                   }}
                 />
+              )}
+            </Box>
+          )}
+
+          {/* Description and tags */}
+          {(currentMedia?.description || (currentMedia?.tags && currentMedia.tags.length > 0)) && (
+            <Box
+              sx={{
+                width: '100%',
+                px: 1.5,
+                pt: 1,
+                bgcolor: 'rgba(0,0,0,0.7)',
+              }}
+            >
+              {currentMedia.description && (
+                <Typography variant="body2" sx={{ color: 'white' }}>
+                  {currentMedia.description}
+                </Typography>
+              )}
+              {currentMedia.tags && currentMedia.tags.length > 0 && (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 0.5 }}>
+                  {currentMedia.tags.map((tag) => (
+                    <Chip
+                      key={tag}
+                      label={tag}
+                      size="small"
+                      color="primary"
+                      component="a"
+                      href={`/tags/${encodeURIComponent(tag)}`}
+                      clickable
+                      sx={{
+                        color: '#fff',
+                        '&:hover': {
+                          bgcolor: 'primary.dark',
+                        },
+                      }}
+                    />
+                  ))}
+                </Box>
               )}
             </Box>
           )}

@@ -77,6 +77,50 @@ describe('MediaAlbumViewer', () => {
     expect(screen.getByText('1 / 3')).toBeInTheDocument();
   });
 
+  it('displays media description and tags in the carousel when present', async () => {
+    const mediaWithDetails: GetMediaResponse[] = [
+      {
+        id: 'media-1',
+        fileName: 'photo1.jpg',
+        contentType: 'image',
+        thumbHref: 'https://api.example.com/thumb/1',
+        viewerHref: 'https://api.example.com/view/1',
+        href: 'https://api.example.com/dl/1',
+        description: 'A beautiful sunset over the mountains',
+        tags: ['nature', 'sunset'],
+      },
+      {
+        id: 'media-2',
+        fileName: 'photo2.jpg',
+        contentType: 'image',
+        thumbHref: 'https://api.example.com/thumb/2',
+        viewerHref: 'https://api.example.com/view/2',
+        href: 'https://api.example.com/dl/2',
+      },
+    ];
+
+    render(
+      <MediaAlbumViewer
+        media={mediaWithDetails}
+        albumUrlFriendlyName="album"
+        initialMediaId="media-1"
+      />,
+    );
+
+    // Description and tags should be visible for the first item
+    expect(await screen.findByText('A beautiful sunset over the mountains')).toBeInTheDocument();
+    const natureChip = screen.getByText('nature').closest('a');
+    expect(natureChip).toHaveAttribute('href', '/tags/nature');
+    const sunsetChip = screen.getByText('sunset').closest('a');
+    expect(sunsetChip).toHaveAttribute('href', '/tags/sunset');
+
+    // Navigate to item without description or tags — they should disappear
+    fireEvent.click(screen.getByLabelText('Next media'));
+    expect(screen.queryByText('A beautiful sunset over the mountains')).not.toBeInTheDocument();
+    expect(screen.queryByText('nature')).not.toBeInTheDocument();
+    expect(screen.queryByText('sunset')).not.toBeInTheDocument();
+  });
+
   it('renders <video> for video contentType and <img> for image', async () => {
     render(
       <MediaAlbumViewer media={mockMedia} albumUrlFriendlyName="album" initialMediaId="media-3" />,
