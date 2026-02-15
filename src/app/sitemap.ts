@@ -14,7 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/privacy',
   ].map((path) => ({
     url: `${baseUrl}${path}`,
-    lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: path === '' ? 1 : 0.7,
   }));
