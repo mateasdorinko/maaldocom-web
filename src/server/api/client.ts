@@ -9,6 +9,7 @@ import 'server-only';
 import axios from 'axios';
 import type { AxiosError, AxiosInstance } from 'axios';
 import { KnowledgeApi, TagsApi, MediaAlbumsApi, SystemApi } from './generated';
+import { getClientCredentialsToken } from './token';
 
 function getBaseURL(): string {
   const url = process.env.API_BASE_URL;
@@ -33,12 +34,28 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
+/** Authenticated Axios instance that attaches a client credentials token */
+export const authenticatedApiClient: AxiosInstance = axios.create({
+  timeout: 15_000,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+});
+
+authenticatedApiClient.interceptors.request.use(async (config) => {
+  config.baseURL = getBaseURL();
+  const token = await getClientCredentialsToken();
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 // ── Typed API instances (used by route handlers) ──────────────────────
 
 export const knowledgeApi = new KnowledgeApi(apiClient);
 export const tagsApi = new TagsApi(apiClient);
 export const mediaAlbumsApi = new MediaAlbumsApi(apiClient);
-export const systemApi = new SystemApi(apiClient);
+export { SystemApi };
 
 // ── Error mapping ─────────────────────────────────────────────────────
 

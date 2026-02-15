@@ -24,7 +24,8 @@ Next.js 16 App Router with TypeScript strict mode, Material UI, and a Backend-fo
 ### Server-only boundary (`src/server/`)
 
 All code under `src/server/` uses `import 'server-only'` and must never be imported by client components. This includes:
-- `src/server/api/client.ts` — Axios wrapper configured with `API_BASE_URL`, timeouts, error mapping
+- `src/server/api/client.ts` — Axios wrapper configured with `API_BASE_URL`, timeouts, error mapping. Exports two instances: `apiClient` (unauthenticated, for public endpoints) and `authenticatedApiClient` (attaches a client credentials Bearer token via request interceptor)
+- `src/server/api/token.ts` — OAuth2 client credentials flow against Auth0 with in-memory token caching
 - `src/server/api/generated/` — Auto-generated TypeScript Axios client from OpenAPI spec (committed to source control, not generated in CI)
 
 ### BFF layer (`src/app/api/`)
@@ -52,7 +53,7 @@ Two content layouts used across pages:
 
 ### Auth (`src/lib/auth0.ts`)
 
-Auth0 v4 SDK. Env vars: `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_SECRET`, `APP_BASE_URL`. Middleware handles `/auth/*` routes. Server pages use `auth0.getSession()` for auth gating. Client components use `useUser()` from the Auth0Provider in root layout.
+Auth0 v4 SDK. Env vars: `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_SECRET`, `AUTH0_AUDIENCE`, `APP_BASE_URL`. Middleware handles `/auth/*` routes. Server pages use `auth0.getSession()` for auth gating. Client components use `useUser()` from the Auth0Provider in root layout. `AUTH0_AUDIENCE` is used by the client credentials flow (`src/server/api/token.ts`) to obtain machine-to-machine tokens for protected API endpoints.
 
 ### OpenTelemetry (`src/instrumentation.ts`)
 
@@ -75,6 +76,7 @@ OTLP exporter activated when `OTEL_EXPORTER_OTLP_ENDPOINT` is set. All config vi
 - **No `API_BASE_URL` in client components.** Only route handlers and server utilities may use it.
 - **No media proxying.** Use API-provided streaming URLs directly (`thumbHref`/`viewerHref`/`href`).
 - **Server components by default.** Only use `'use client'` for interactivity (polling, carousel, forms, theme toggle).
+- **Per-call auth only.** Use `authenticatedApiClient` by constructing API class instances at the call site (e.g., `new SystemApi(authenticatedApiClient)`). Never bind an entire API class to the authenticated client at module level — route handlers choose which client to use per-call.
 - **Generated client is committed.** Run `npm run api:generate` manually; it is not run in CI.
 
 ## Path alias

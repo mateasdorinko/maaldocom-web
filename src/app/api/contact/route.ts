@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { systemApi, mapApiError } from '@/server';
+import { authenticatedApiClient, SystemApi, mapApiError } from '@/server';
 
 /** Shape of the contact form submission from the browser */
 interface ContactFormBody {
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     }
 
     // Forward to upstream API
-    await systemApi.postMail({
+    await new SystemApi(authenticatedApiClient).postMail({
       from: body.email!.trim(),
       subject: body.subject!.trim(),
       body: body.message!.trim(),

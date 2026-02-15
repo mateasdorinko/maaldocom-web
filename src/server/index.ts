@@ -8,10 +8,11 @@ import 'server-only';
 
 export {
   apiClient,
+  authenticatedApiClient,
   knowledgeApi,
   tagsApi,
   mediaAlbumsApi,
-  systemApi,
+  SystemApi,
   mapApiError,
 } from './api/client';
 

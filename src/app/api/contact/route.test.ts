@@ -7,7 +7,10 @@ const { mockPostMail, mockMapApiError } = vi.hoisted(() => ({
 }));
 
 vi.mock('@/server', () => ({
-  systemApi: { postMail: mockPostMail },
+  authenticatedApiClient: {},
+  SystemApi: class {
+    postMail = mockPostMail;
+  },
   mapApiError: mockMapApiError,
 }));
 

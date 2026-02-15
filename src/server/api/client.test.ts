@@ -6,8 +6,11 @@ vi.hoisted(() => {
   process.env.API_BASE_URL = 'http://test-api.example.com';
 });
 vi.mock('server-only', () => ({}));
+vi.mock('./token', () => ({
+  getClientCredentialsToken: vi.fn().mockResolvedValue('test-access-token'),
+}));
 
-import { mapApiError } from './client';
+import { mapApiError, authenticatedApiClient } from './client';
 
 /** Helper to create a realistic AxiosError with a response. */
 function axiosError(status: number, data?: unknown): AxiosError {
@@ -67,5 +70,22 @@ describe('mapApiError', () => {
       status: 500,
       body: { message: 'An unexpected error occurred' },
     });
+  });
+});
+
+describe('authenticatedApiClient', () => {
+  it('attaches Authorization header via request interceptor', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- accessing internal interceptor handlers for testing
+    const handlers = (authenticatedApiClient.interceptors.request as any).handlers as Array<{
+      fulfilled: (config: never) => Promise<Record<string, unknown>>;
+    }>;
+    const config = await handlers[0].fulfilled({
+      headers: new (await import('axios')).AxiosHeaders(),
+    } as never);
+
+    expect(config.baseURL).toBe('http://test-api.example.com');
+    expect((config.headers as Record<string, string>).Authorization).toBe(
+      'Bearer test-access-token',
+    );
   });
 });
