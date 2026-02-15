@@ -2,26 +2,38 @@
 
 import { createTheme } from '@mui/material/styles';
 
-// Palette tokens derived from REFERENCE/prototype.html
+// Palette tokens generated from Material Design palette tool
 const lightPalette = {
   mode: 'light' as const,
   primary: {
-    main: '#4D5C92',
-    light: '#DCE1FF',
-    dark: '#354479',
+    main: '#2962ff',
+    light: '#6280ff',
+    dark: '#0022d9',
     contrastText: '#FFFFFF',
   },
   secondary: {
-    main: '#595D72',
-    light: '#DEE1F9',
-    dark: '#424659',
+    main: '#5b29ff',
+    light: '#9871ff',
+    dark: '#301cf0',
     contrastText: '#FFFFFF',
   },
   error: {
-    main: '#BA1A1A',
-    light: '#FFDAD6',
-    dark: '#93000A',
+    main: '#ff2962',
+    light: '#ff6892',
+    dark: '#d71e5c',
     contrastText: '#FFFFFF',
+  },
+  warning: {
+    main: '#ffc629',
+    light: '#ffd14f',
+    dark: '#feaf07',
+    contrastText: '#000000',
+  },
+  info: {
+    main: '#00c2ff',
+    light: '#29cdff',
+    dark: '#0083cc',
+    contrastText: '#000000',
   },
   background: {
     default: '#FAF8FF',
@@ -37,22 +49,34 @@ const lightPalette = {
 const darkPalette = {
   mode: 'dark' as const,
   primary: {
-    main: '#B6C4FF',
-    light: '#3A4578',
-    dark: '#DCE1FF',
-    contrastText: '#1E2D61',
+    main: '#96a4fe',
+    light: '#c2c8fe',
+    dark: '#003bf0',
+    contrastText: '#0001c0',
   },
   secondary: {
-    main: '#C2C5DD',
-    light: '#414659',
-    dark: '#DEE1F9',
-    contrastText: '#2B3042',
+    main: '#b89cff',
+    light: '#d5c4fe',
+    dark: '#4b25f8',
+    contrastText: '#0000e6',
   },
   error: {
-    main: '#FFB4AB',
-    light: '#93000A',
-    dark: '#FFDAD6',
-    contrastText: '#690005',
+    main: '#ff94b2',
+    light: '#ffbed0',
+    dark: '#c31859',
+    contrastText: '#9f0b53',
+  },
+  warning: {
+    main: '#ffd14f',
+    light: '#ffdd81',
+    dark: '#fd8b09',
+    contrastText: '#000000',
+  },
+  info: {
+    main: '#76dbfe',
+    light: '#afeafe',
+    dark: '#0094e0',
+    contrastText: '#0062ab',
   },
   background: {
     default: '#121318',
@@ -107,8 +131,8 @@ function buildTheme(mode: 'light' | 'dark') {
       ...palette,
       tertiary:
         mode === 'dark'
-          ? { main: '#E4BAD9', light: '#5B3D57', dark: '#FFD7F5', contrastText: '#432740' }
-          : { main: '#75546F', light: '#FFD7F5', dark: '#5B3D57', contrastText: '#FFFFFF' },
+          ? { main: '#e091ff', light: '#ecbefe', dark: '#8900f2', contrastText: '#2400e3' }
+          : { main: '#c629ff', light: '#d25eff', dark: '#a600f8', contrastText: '#FFFFFF' },
       outline:
         mode === 'dark'
           ? { main: '#90909A', variant: '#46464F' }
@@ -135,11 +159,24 @@ function buildTheme(mode: 'light' | 'dark') {
               containerHigh: '#E9E7EF',
               containerHighest: '#E3E1E9',
             },
-      navBar: mode === 'dark' ? '#0D47A1' : '#2962FF',
+      navBar: mode === 'dark' ? '#0D47A1' : '#2962ff',
     },
     typography: {
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     },
+    ...(mode === 'dark' && {
+      components: {
+        MuiButton: {
+          styleOverrides: {
+            containedPrimary: {
+              '&:hover': {
+                color: '#c2c8fe',
+              },
+            },
+          },
+        },
+      },
+    }),
   });
 }
 
