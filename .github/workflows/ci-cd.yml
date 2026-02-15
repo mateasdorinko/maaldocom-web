@@ -54,7 +54,7 @@ jobs:
       - name: Create test summary
         uses: test-summary/action@v2.4
         with:
-          paths: coverage/cobertura-coverage.xml
+          paths: test-results/junit.xml
           output: results/summary.md
           show: 'all'
         if: always()
