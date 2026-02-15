@@ -23,7 +23,6 @@ function getBaseURL(): string {
 export const apiClient: AxiosInstance = axios.create({
   timeout: 15_000,
   headers: {
-    'Content-Type': 'application/json',
     Accept: 'application/json',
   },
 });
@@ -38,7 +37,6 @@ apiClient.interceptors.request.use((config) => {
 export const authenticatedApiClient: AxiosInstance = axios.create({
   timeout: 15_000,
   headers: {
-    'Content-Type': 'application/json',
     Accept: 'application/json',
   },
 });
@@ -56,6 +54,15 @@ export const knowledgeApi = new KnowledgeApi(apiClient);
 export const tagsApi = new TagsApi(apiClient);
 export const mediaAlbumsApi = new MediaAlbumsApi(apiClient);
 export { SystemApi };
+
+// ── Media URL resolution ──────────────────────────────────────────────
+
+/** Resolves a relative API media path to an absolute URL using API_BASE_URL. */
+export function resolveMediaUrl(path: string | null | undefined): string | null {
+  if (!path) return null;
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  return `${getBaseURL()}${path}`;
+}
 
 // ── Error mapping ─────────────────────────────────────────────────────
 

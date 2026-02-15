@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tag = await fetchTag(name);
   if (!tag) return { title: 'Not Found' };
   return {
-    title: `Tag: ${tag.name}`,
+    title: `Tag > ${tag.name}`,
     description: `Content tagged with "${tag.name}".`,
   };
 }
@@ -53,17 +53,32 @@ export default async function TagDetailPage({ params }: PageProps) {
         Tag: {tag.name}
       </Typography>
       {tag.count != null && (
-        <Typography variant="body1" color="text.secondary" paragraph>
+        <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
           Found in {tag.count} item{tag.count !== 1 ? 's' : ''}.
         </Typography>
       )}
 
       {tag.mediaAlbums && tag.mediaAlbums.length > 0 && (
         <>
-          <Typography variant="h5" component="h2" gutterBottom sx={{ mt: 3 }}>
+          <Typography
+            variant="h6"
+            component="h2"
+            gutterBottom
+            sx={{ mt: 3, fontWeight: 500, color: 'tertiary.main' }}
+          >
             Media Albums
           </Typography>
-          <List disablePadding>
+          <List
+            disablePadding
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(4, 1fr)',
+              },
+            }}
+          >
             {tag.mediaAlbums.map((album) => (
               <ListItem key={album.mediaAlbumId} disablePadding>
                 <ListItemButton
@@ -80,10 +95,25 @@ export default async function TagDetailPage({ params }: PageProps) {
 
       {tag.media && tag.media.length > 0 && (
         <>
-          <Typography variant="h5" component="h2" gutterBottom sx={{ mt: 3 }}>
+          <Typography
+            variant="h6"
+            component="h2"
+            gutterBottom
+            sx={{ mt: 3, fontWeight: 500, color: 'tertiary.main' }}
+          >
             Media
           </Typography>
-          <List disablePadding>
+          <List
+            disablePadding
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(4, 1fr)',
+              },
+            }}
+          >
             {tag.media.map((m) => (
               <ListItem key={m.mediaId} disablePadding>
                 <ListItemButton

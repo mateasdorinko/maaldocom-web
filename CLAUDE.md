@@ -32,7 +32,7 @@ All code under `src/server/` uses `import 'server-only'` and must never be impor
 
 All browser data requests go through `/api/*` route handlers. Route handlers are the **only** code allowed to reference `API_BASE_URL`. Client components call `/api/*` (same-origin) exclusively.
 
-**Exception:** Media streaming URLs (`thumbHref`, `viewerHref`, `href`) returned by the API are used directly by the browser — never proxied through Next.js.
+**Exception:** Media streaming URLs (`thumbHref`, `viewerHref`, `href`) returned by the API are relative paths (e.g. `/media-albums/.../thumb`). Server components must resolve these to absolute URLs using `resolveMediaUrl()` from `src/server/api/client.ts` before passing them to client components. The browser then fetches media directly from the API — never proxied through Next.js.
 
 ### Theme system (`src/theme/`)
 
@@ -74,7 +74,7 @@ OTLP exporter activated when `OTEL_EXPORTER_OTLP_ENDPOINT` is set. All config vi
 
 - **No `NEXT_PUBLIC_*` env vars.** All secrets (API_BASE_URL, Auth0, OTEL) are server-only.
 - **No `API_BASE_URL` in client components.** Only route handlers and server utilities may use it.
-- **No media proxying.** Use API-provided streaming URLs directly (`thumbHref`/`viewerHref`/`href`).
+- **No media proxying.** Media URLs (`thumbHref`/`viewerHref`/`href`) are relative paths from the API. Resolve them server-side with `resolveMediaUrl()` before passing to client components. The browser fetches media directly from the API.
 - **Server components by default.** Only use `'use client'` for interactivity (polling, carousel, forms, theme toggle).
 - **Per-call auth only.** Use `authenticatedApiClient` by constructing API class instances at the call site (e.g., `new SystemApi(authenticatedApiClient)`). Never bind an entire API class to the authenticated client at module level — route handlers choose which client to use per-call.
 - **Generated client is committed.** Run `npm run api:generate` manually; it is not run in CI.

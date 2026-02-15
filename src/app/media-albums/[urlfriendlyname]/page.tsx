@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import SecondaryLayout from '@/components/SecondaryLayout';
 import MediaAlbumViewer from '@/components/MediaAlbumViewer';
-import { mediaAlbumsApi, mapApiError } from '@/server';
+import { mediaAlbumsApi, mapApiError, resolveMediaUrl } from '@/server';
 import type { GetMediaAlbumDetailResponse, GetMediaAlbumResponse } from '@/types/api';
 
 export const revalidate = 600;
@@ -43,13 +43,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!album) return { title: 'Not Found' };
 
   return {
-    title: album.name,
-    description: album.description || `Media album: ${album.name}`,
+    title: `Media albums > ${album.name}`,
+    description: album.description || `Media albums > ${album.name}`,
     openGraph: {
       title: album.name ?? undefined,
       description: album.description ?? undefined,
       type: 'website',
-      images: album.thumbHref ? [{ url: album.thumbHref }] : undefined,
+      images: resolveMediaUrl(album.thumbHref)
+        ? [{ url: resolveMediaUrl(album.thumbHref)! }]
+        : undefined,
     },
   };
 }
@@ -109,13 +111,18 @@ export default async function MediaAlbumDetailPage({ params }: PageProps) {
       </Typography>
 
       {album.description && (
-        <Typography variant="body1" color="text.secondary" paragraph>
+        <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
           {album.description}
         </Typography>
       )}
 
       <MediaAlbumViewer
-        media={album.media ?? []}
+        media={(album.media ?? []).map((m) => ({
+          ...m,
+          thumbHref: resolveMediaUrl(m.thumbHref),
+          viewerHref: resolveMediaUrl(m.viewerHref),
+          href: resolveMediaUrl(m.href),
+        }))}
         albumUrlFriendlyName={album.urlFriendlyName ?? urlfriendlyname}
       />
     </SecondaryLayout>

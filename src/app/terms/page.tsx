@@ -37,7 +37,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Purpose of the Website
       </Typography>
 
@@ -49,7 +54,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Authentication and Accounts
       </Typography>
 
@@ -66,7 +76,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Acceptable Use
       </Typography>
 
@@ -92,7 +107,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Intellectual Property
       </Typography>
 
@@ -108,7 +128,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         External Links
       </Typography>
 
@@ -119,7 +144,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Disclaimer
       </Typography>
 
@@ -130,7 +160,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Limitation of Liability
       </Typography>
 
@@ -141,7 +176,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Changes to These Terms
       </Typography>
 
@@ -152,7 +192,12 @@ export default function TermsPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Contact
       </Typography>
 

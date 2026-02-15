@@ -13,6 +13,7 @@ export {
   tagsApi,
   mediaAlbumsApi,
   SystemApi,
+  resolveMediaUrl,
   mapApiError,
 } from './api/client';
 

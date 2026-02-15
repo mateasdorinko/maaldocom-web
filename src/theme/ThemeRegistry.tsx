@@ -18,12 +18,27 @@ export const ThemeContext = React.createContext<ThemeContextValue>({
   toggleMode: () => {},
 });
 
+const STORAGE_KEY = 'themeMode';
+
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
   const prefersLight = useMediaQuery('(prefers-color-scheme: light)');
-  const [mode, setMode] = React.useState<ThemeMode>(prefersLight ? 'light' : 'dark');
+  const [mode, setMode] = React.useState<ThemeMode>('dark');
+
+  React.useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'light' || stored === 'dark') {
+      setMode(stored);
+    } else if (prefersLight) {
+      setMode('light');
+    }
+  }, [prefersLight]);
 
   const toggleMode = React.useCallback(() => {
-    setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setMode((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem(STORAGE_KEY, next);
+      return next;
+    });
   }, []);
 
   const theme = mode === 'dark' ? darkTheme : lightTheme;

@@ -8,6 +8,12 @@ const apiMediaHosts = [
   'api.maaldo.com',
 ];
 
+// In development, API_BASE_URL is typically http://localhost:5164.
+// Extract the origin so the CSP permits media loaded directly from the API.
+const apiBaseUrl = process.env.API_BASE_URL;
+const devMediaOrigin =
+  apiBaseUrl && !apiBaseUrl.startsWith('https') ? new URL(apiBaseUrl).origin : null;
+
 // Content-Security-Policy — permissive baseline.
 // MUI emotion requires 'unsafe-inline' for style-src.
 // Next.js requires 'unsafe-inline' for script-src (no nonce support yet in
@@ -16,8 +22,8 @@ const cspDirectives = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' 'unsafe-eval'`,
   `style-src 'self' 'unsafe-inline'`,
-  `img-src 'self' data: blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}`,
-  `media-src 'self' blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}`,
+  `img-src 'self' data: blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}${devMediaOrigin ? ` ${devMediaOrigin}` : ''}`,
+  `media-src 'self' blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}${devMediaOrigin ? ` ${devMediaOrigin}` : ''}`,
   `font-src 'self'`,
   `connect-src 'self' https://*.auth0.com`,
   `frame-src 'self' https://*.auth0.com`,

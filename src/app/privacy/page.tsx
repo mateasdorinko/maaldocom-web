@@ -35,11 +35,21 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Information Collected
       </Typography>
 
-      <Typography variant="h6" component="h3" gutterBottom>
+      <Typography
+        variant="subtitle1"
+        component="h3"
+        gutterBottom
+        sx={{ fontWeight: 600, color: 'secondary.main' }}
+      >
         Information You Provide
       </Typography>
 
@@ -70,7 +80,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h6" component="h3" gutterBottom>
+      <Typography
+        variant="subtitle1"
+        component="h3"
+        gutterBottom
+        sx={{ fontWeight: 600, color: 'secondary.main' }}
+      >
         Automatically Collected Information
       </Typography>
 
@@ -99,7 +114,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         How Information Is Used
       </Typography>
 
@@ -125,7 +145,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         OAuth and Third-Party Services
       </Typography>
 
@@ -140,7 +165,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Cookies
       </Typography>
 
@@ -151,7 +181,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Data Retention
       </Typography>
 
@@ -162,7 +197,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Data Security
       </Typography>
 
@@ -173,7 +213,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Your Rights (GDPR & CCPA)
       </Typography>
 
@@ -207,7 +252,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Changes to This Policy
       </Typography>
 
@@ -218,7 +268,12 @@ export default function PrivacyPage() {
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Contact
       </Typography>
 

@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { mediaAlbumsApi } from '@/server';
+import { mediaAlbumsApi, resolveMediaUrl } from '@/server';
 import type { GetMediaAlbumResponse } from '@/types/api';
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default async function MediaAlbumsPage() {
       </Typography>
 
       <Typography variant="subtitle1" color="text.secondary" gutterBottom sx={{ mb: 3 }}>
-        A curated collection of visual media
+        A collection of pictures and videos from various events and moments.
       </Typography>
 
       <Paper
@@ -82,7 +82,12 @@ export default async function MediaAlbumsPage() {
         </Button>
       </Paper>
 
-      <Typography variant="h5" component="h2" gutterBottom color="primary">
+      <Typography
+        variant="h6"
+        component="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, color: 'tertiary.main' }}
+      >
         Featured Albums
       </Typography>
 
@@ -94,24 +99,19 @@ export default async function MediaAlbumsPage() {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: {
-              xs: 'repeat(1, 1fr)',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(3, 1fr)',
-              lg: 'repeat(4, 1fr)',
-            },
+            gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 200px))',
             gap: 2,
           }}
         >
           {albums.map((album) => (
             <Card key={album.id} sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardActionArea href={`/media-albums/${album.urlFriendlyName}`} sx={{ flex: 1 }}>
-                {album.thumbHref ? (
+                {resolveMediaUrl(album.thumbHref) ? (
                   <CardMedia
                     component="img"
-                    image={album.thumbHref}
+                    image={resolveMediaUrl(album.thumbHref)!}
                     alt={album.name ?? ''}
-                    sx={{ aspectRatio: '4/3', objectFit: 'cover' }}
+                    sx={{ aspectRatio: '4/3', objectFit: 'contain', bgcolor: 'action.hover' }}
                   />
                 ) : (
                   <Box

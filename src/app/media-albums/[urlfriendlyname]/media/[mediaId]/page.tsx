@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import SecondaryLayout from '@/components/SecondaryLayout';
 import MediaAlbumViewer from '@/components/MediaAlbumViewer';
-import { mediaAlbumsApi, mapApiError } from '@/server';
+import { mediaAlbumsApi, mapApiError, resolveMediaUrl } from '@/server';
 import type { GetMediaAlbumDetailResponse, GetMediaAlbumResponse } from '@/types/api';
 
 export const revalidate = 600;
@@ -52,7 +52,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description: mediaItem?.description ?? undefined,
       type: 'website',
-      images: mediaItem?.thumbHref ? [{ url: mediaItem.thumbHref }] : undefined,
+      images: resolveMediaUrl(mediaItem?.thumbHref)
+        ? [{ url: resolveMediaUrl(mediaItem?.thumbHref)! }]
+        : undefined,
     },
   };
 }
@@ -112,13 +114,18 @@ export default async function MediaDeepLinkPage({ params }: PageProps) {
       </Typography>
 
       {album.description && (
-        <Typography variant="body1" color="text.secondary" paragraph>
+        <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
           {album.description}
         </Typography>
       )}
 
       <MediaAlbumViewer
-        media={album.media ?? []}
+        media={(album.media ?? []).map((m) => ({
+          ...m,
+          thumbHref: resolveMediaUrl(m.thumbHref),
+          viewerHref: resolveMediaUrl(m.viewerHref),
+          href: resolveMediaUrl(m.href),
+        }))}
         albumUrlFriendlyName={album.urlFriendlyName ?? urlfriendlyname}
         initialMediaId={mediaId}
       />

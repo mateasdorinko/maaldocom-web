@@ -107,11 +107,7 @@ export default function MediaAlbumViewer({
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: {
-            xs: 'repeat(2, 1fr)',
-            sm: 'repeat(3, 1fr)',
-            md: 'repeat(4, 1fr)',
-          },
+          gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 200px))',
           gap: 1,
         }}
       >
@@ -147,7 +143,7 @@ export default function MediaAlbumViewer({
                 sx={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  objectFit: 'contain',
                   display: 'block',
                 }}
               />
