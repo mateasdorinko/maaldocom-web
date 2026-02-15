@@ -41,10 +41,12 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Verify image exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Verifying image exists: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image-tag }}"
 
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+          echo "$GH_TOKEN" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
           if docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image-tag }} > /dev/null 2>&1; then
             echo "Image found"
