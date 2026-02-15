@@ -52,6 +52,10 @@ jobs:
         run: npm run test:coverage
 
       - name: Create test summary
+        run: mkdir -p results
+        if: always()
+
+      - name: Generate test summary
         uses: test-summary/action@v2.4
         with:
           paths: test-results/junit.xml
