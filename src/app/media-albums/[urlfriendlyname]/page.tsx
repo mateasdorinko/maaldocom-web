@@ -1,6 +1,8 @@
 import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -114,6 +116,28 @@ export default async function MediaAlbumDetailPage({ params }: PageProps) {
         <Typography variant="body1" color="text.secondary" component="p" sx={{ mb: 2 }}>
           {album.description}
         </Typography>
+      )}
+
+      {album.tags && album.tags.length > 0 && (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
+          {album.tags.map((tag) => (
+            <Chip
+              key={tag}
+              label={tag}
+              size="small"
+              color="primary"
+              component="a"
+              href={`/tags/${encodeURIComponent(tag)}`}
+              clickable
+              sx={{
+                color: '#fff',
+                '&:hover': {
+                  bgcolor: 'primary.dark',
+                },
+              }}
+            />
+          ))}
+        </Box>
       )}
 
       <MediaAlbumViewer
