@@ -27,7 +27,9 @@ async function fetchTags(): Promise<GetTagResponse[]> {
 }
 
 export default async function HomePage() {
-  const tags = (await fetchTags()).filter((tag) => tag.count != null && tag.count > 0);
+  const tags = (await fetchTags()).filter(
+    (tag) => tag.count != null && tag.count > 0 && tag.name !== 'hotshots',
+  );
 
   return (
     <SecondaryLayout

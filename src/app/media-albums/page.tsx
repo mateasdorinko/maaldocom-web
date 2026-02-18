@@ -42,7 +42,7 @@ export default async function MediaAlbumsPage() {
       </Typography>
 
       <Typography variant="subtitle1" color="text.secondary" gutterBottom sx={{ mb: 3 }}>
-        A collection of pictures and videos capturing life at the best moments.
+        A growing collection of life’s moments, big and small.
       </Typography>
 
       <Paper
@@ -64,7 +64,7 @@ export default async function MediaAlbumsPage() {
           '&:hover': { opacity: 0.92 },
         }}
       >
-        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 700, fontSize: '1.5rem' }}>
           HotShots
         </Typography>
         <Button
