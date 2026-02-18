@@ -42,7 +42,7 @@ export default async function MediaAlbumsPage() {
       </Typography>
 
       <Typography variant="subtitle1" color="text.secondary" gutterBottom sx={{ mb: 3 }}>
-        A collection of pictures and videos from various events and moments.
+        A collection of pictures and videos capturing life at the best moments.
       </Typography>
 
       <Paper
