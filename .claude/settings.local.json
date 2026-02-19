@@ -16,7 +16,13 @@
       "Bash(npm run typecheck:*)",
       "Bash(npm run lint:*)",
       "Bash(npm run format:*)",
-      "Bash(npm test:*)"
+      "Bash(npm test:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm update:*)",
+      "WebSearch",
+      "WebFetch(domain:eslint.org)",
+      "Bash(npm view:*)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
