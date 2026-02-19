@@ -45,8 +45,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!album) return { title: 'Not Found' };
 
   return {
-    title: `Media albums > ${album.name}`,
-    description: album.description || `Media albums > ${album.name}`,
+    title: `Media Albums > ${album.name}`,
+    description: album.description || `Media Albums > ${album.name}`,
     openGraph: {
       title: album.name ?? undefined,
       description: album.description ?? undefined,

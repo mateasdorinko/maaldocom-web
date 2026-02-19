@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tag = await fetchTag(name);
   if (!tag) return { title: 'Not Found' };
   return {
-    title: `Tag > ${tag.name}`,
+    title: `Tags > ${tag.name}`,
     description: `Content tagged with "${tag.name}".`,
   };
 }
