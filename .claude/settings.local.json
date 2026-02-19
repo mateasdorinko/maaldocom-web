@@ -22,7 +22,8 @@
       "WebSearch",
       "WebFetch(domain:eslint.org)",
       "Bash(npm view:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(npm audit:*)"
     ]
   }
 }
