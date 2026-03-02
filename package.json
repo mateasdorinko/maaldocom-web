@@ -17,7 +17,7 @@
     "api:generate": "openapi-generator-cli generate -i https://app-maaldocomapi-dev-cus.azurewebsites.net/swagger/v1/swagger.json -g typescript-axios -o src/server/api/generated --additional-properties=supportsES6=true,withSeparateModelsAndApi=true,apiPackage=api,modelPackage=models"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^4.15.0",
+    "@auth0/nextjs-auth0": "^4.16.0",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
@@ -31,16 +31,16 @@
     "@opentelemetry/instrumentation-http": "^0.212.0",
     "@opentelemetry/resources": "^2.5.0",
     "@opentelemetry/sdk-node": "^0.212.0",
-    "@opentelemetry/semantic-conventions": "^1.39.0",
-    "axios": "^1.13.5",
+    "@opentelemetry/semantic-conventions": "^1.40.0",
+    "axios": "^1.13.6",
     "next": "16.1.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "server-only": "^0.0.1",
-    "swr": "^2.4.0"
+    "swr": "^2.4.1"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.28.3",
+    "@openapitools/openapi-generator-cli": "^2.30.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
