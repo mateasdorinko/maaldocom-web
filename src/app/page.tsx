@@ -13,6 +13,9 @@ import type { GetTagResponse } from '@/types/api';
 export const metadata: Metadata = {
   title: 'maaldo.com | Home',
   description: 'Personal portfolio, media albums, writings, and more.',
+  other: {
+    'google-site-verification': 'mTACCNgV_L6xb-B1e-aN6CBss0H0yZ5iMs0NwYWhuCc',
+  },
 };
 
 export const revalidate = 300;
