@@ -28,7 +28,9 @@ export const metadata: Metadata = {
     default: 'maaldo.com',
     template: 'maaldo.com | %s',
   },
-  description: 'Personal portfolio, media albums, writings, and more.',
+  description: 'Personal website - media albums, tech tinkerings, writings, and more.',
+  authors: [{ name: 'Matt Doering' }],
+  creator: 'Matt Doering',
   other: {
     'google-site-verification': 'mTACCNgV_L6xb-B1e-aN6CBss0H0yZ5iMs0NwYWhuCc',
   },

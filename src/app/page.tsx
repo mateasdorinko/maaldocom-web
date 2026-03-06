@@ -32,6 +32,10 @@ const websiteJsonLd = {
   name: 'maaldo.com',
   url: 'https://maaldo.com',
   description: 'Personal portfolio, media albums, writings, and more.',
+  author: {
+    '@type': 'Person',
+    name: 'Matt Doering',
+  },
 };
 
 export default async function HomePage() {
