@@ -23,11 +23,15 @@ const audiowide = Audiowide({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://maaldo.com'),
   title: {
     default: 'maaldo.com',
     template: 'maaldo.com | %s',
   },
   description: 'Personal portfolio, media albums, writings, and more.',
+  other: {
+    'google-site-verification': 'mTACCNgV_L6xb-B1e-aN6CBss0H0yZ5iMs0NwYWhuCc',
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

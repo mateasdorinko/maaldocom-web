@@ -11,11 +11,8 @@ import { tagsApi } from '@/server';
 import type { GetTagResponse } from '@/types/api';
 
 export const metadata: Metadata = {
-  title: 'maaldo.com | Home',
+  title: { absolute: 'maaldo.com' },
   description: 'Personal portfolio, media albums, writings, and more.',
-  other: {
-    'google-site-verification': 'mTACCNgV_L6xb-B1e-aN6CBss0H0yZ5iMs0NwYWhuCc',
-  },
 };
 
 export const revalidate = 300;
@@ -29,13 +26,26 @@ async function fetchTags(): Promise<GetTagResponse[]> {
   }
 }
 
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'maaldo.com',
+  url: 'https://maaldo.com',
+  description: 'Personal portfolio, media albums, writings, and more.',
+};
+
 export default async function HomePage() {
   const tags = (await fetchTags()).filter(
     (tag) => tag.count != null && tag.count > 0 && tag.name !== 'hotshots',
   );
 
   return (
-    <SecondaryLayout
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <SecondaryLayout
       sidebar={
         <>
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
@@ -133,5 +143,6 @@ export default async function HomePage() {
       />
       <RandomKnowledge />
     </SecondaryLayout>
+    </>
   );
 }
