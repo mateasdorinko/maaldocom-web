@@ -100,7 +100,7 @@ export default function AppFooter() {
         ))}
       </Box>
       <Typography variant="body2" color="text.secondary">
-        &copy; {new Date().getFullYear()} maaldo.com &middot;{' '}
+        &copy; {new Date().getFullYear()} Matt Doering | maaldo.com &middot;{' '}
         <MuiLink component={Link} href="/terms" color="inherit" underline="hover">
           Terms
         </MuiLink>{' '}

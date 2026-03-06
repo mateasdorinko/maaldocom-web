@@ -12,7 +12,7 @@ import type { GetTagResponse } from '@/types/api';
 
 export const metadata: Metadata = {
   title: { absolute: 'maaldo.com' },
-  description: 'Personal portfolio, media albums, writings, and more.',
+  description: 'Personal website featuring media albums, tech experiments, writings, and more.',
 };
 
 export const revalidate = 300;
@@ -31,7 +31,7 @@ const websiteJsonLd = {
   '@type': 'WebSite',
   name: 'maaldo.com',
   url: 'https://maaldo.com',
-  description: 'Personal portfolio, media albums, writings, and more.',
+  description: 'Personal website featuring media albums, tech experiments, writings, and more.',
   author: {
     '@type': 'Person',
     name: 'Matt Doering',
