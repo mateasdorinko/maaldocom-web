@@ -23,7 +23,8 @@
       "WebFetch(domain:eslint.org)",
       "Bash(npm view:*)",
       "WebFetch(domain:github.com)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(gh run:*)"
     ]
   }
 }
