@@ -14,23 +14,22 @@ const apiBaseUrl = process.env.API_BASE_URL;
 const devMediaOrigin =
   apiBaseUrl && !apiBaseUrl.startsWith('https') ? new URL(apiBaseUrl).origin : null;
 
-// reCAPTCHA v3 requires google.com and gstatic.com for scripts and the badge
-// iframe.  Only add these when a site key is configured.
-const recaptchaEnabled = !!process.env.RECAPTCHA_SITE_KEY;
-
 // Content-Security-Policy — permissive baseline.
 // MUI emotion requires 'unsafe-inline' for style-src.
 // Next.js requires 'unsafe-inline' for script-src (no nonce support yet in
 // App Router static headers).  'unsafe-eval' kept for dev HMR; tighten later.
+// google.com and gstatic.com are required for reCAPTCHA v3 (script + badge
+// iframe). next.config.ts is evaluated at build time so we cannot gate these
+// on a runtime env var — include them unconditionally.
 const cspDirectives = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' 'unsafe-eval'${recaptchaEnabled ? ' https://www.google.com https://www.gstatic.com' : ''}`,
+  `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com`,
   `style-src 'self' 'unsafe-inline'`,
   `img-src 'self' data: blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}${devMediaOrigin ? ` ${devMediaOrigin}` : ''}`,
   `media-src 'self' blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}${devMediaOrigin ? ` ${devMediaOrigin}` : ''}`,
   `font-src 'self'`,
   `connect-src 'self' https://*.auth0.com`,
-  `frame-src 'self' https://*.auth0.com${recaptchaEnabled ? ' https://www.google.com' : ''}`,
+  `frame-src 'self' https://*.auth0.com https://www.google.com`,
   `frame-ancestors 'none'`,
   `form-action 'self'`,
   `base-uri 'self'`,
