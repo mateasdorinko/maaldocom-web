@@ -1,3 +1,9 @@
+/* Hide the reCAPTCHA v3 badge — Google permits this when attribution text is
+   shown on the page. See https://developers.google.com/recaptcha/docs/faq */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
+
 /* Reset — MUI CssBaseline handles most resets; keep minimal overrides here */
 html,
 body {
