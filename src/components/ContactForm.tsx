@@ -53,7 +53,7 @@ export default function ContactForm({ recaptchaSiteKey }: Props) {
     // Client-side validation
     const clientErrors: Record<string, string[]> = {};
     if (!body.email.trim()) clientErrors.email = ['Email is required.'];
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email.trim()))
+    else if (!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(body.email.trim()))
       clientErrors.email = ['Please enter a valid email address.'];
     if (!body.subject.trim()) clientErrors.subject = ['Subject is required.'];
     if (!body.message.trim()) clientErrors.message = ['Message is required.'];

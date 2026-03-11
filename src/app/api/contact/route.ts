@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     const errors: Record<string, string[]> = {};
     if (!body.email?.trim()) {
       errors.email = ['Email is required.'];
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email.trim())) {
+    } else if (!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(body.email.trim())) {
       errors.email = ['Please enter a valid email address.'];
     }
     if (!body.subject?.trim()) {

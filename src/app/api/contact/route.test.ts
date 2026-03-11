@@ -77,18 +77,29 @@ describe('POST /api/contact', () => {
     expect(json.errors).not.toHaveProperty('message');
   });
 
-  it('returns 400 when email is present but invalid', async () => {
-    const res = await POST(
-      makeRequest({ email: 'notanemail', subject: 'Hello', message: 'World' }),
-    );
+  it.each([
+    'notanemail', // no @ or dot
+    'missing@dot', // no dot in domain
+    '@example.com', // empty local part
+    'user@.com', // empty domain label
+    'user@example.', // empty TLD
+  ])('returns 400 for invalid email %s', async (email) => {
+    const res = await POST(makeRequest({ email, subject: 'Hello', message: 'World' }));
 
     expect(res.status).toBe(400);
     const json = await res.json();
     expect(json.errors.email).toEqual(['Please enter a valid email address.']);
-    expect(json.errors).not.toHaveProperty('subject');
-    expect(json.errors).not.toHaveProperty('message');
     expect(mockPostMail).not.toHaveBeenCalled();
   });
+
+  it.each(['user@example.com', 'user@mail.example.com', 'user@example.co.uk'])(
+    'accepts valid email %s',
+    async (email) => {
+      mockPostMail.mockResolvedValue(undefined);
+      const res = await POST(makeRequest({ email, subject: 'Hello', message: 'World' }));
+      expect(res.status).toBe(200);
+    },
+  );
 
   it('treats whitespace-only values as missing', async () => {
     const res = await POST(makeRequest({ email: '  ', subject: '\t', message: '\n' }));
