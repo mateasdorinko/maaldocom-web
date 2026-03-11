@@ -24,9 +24,17 @@ function makeRequest(body: unknown): Request {
   });
 }
 
+const validBody = {
+  email: 'user@example.com',
+  subject: 'Hi there',
+  message: 'Some message',
+};
+
 describe('POST /api/contact', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
   });
 
   // ── Honeypot ─────────────────────────────────────────────────────────
@@ -69,6 +77,19 @@ describe('POST /api/contact', () => {
     expect(json.errors).not.toHaveProperty('message');
   });
 
+  it('returns 400 when email is present but invalid', async () => {
+    const res = await POST(
+      makeRequest({ email: 'notanemail', subject: 'Hello', message: 'World' }),
+    );
+
+    expect(res.status).toBe(400);
+    const json = await res.json();
+    expect(json.errors.email).toEqual(['Please enter a valid email address.']);
+    expect(json.errors).not.toHaveProperty('subject');
+    expect(json.errors).not.toHaveProperty('message');
+    expect(mockPostMail).not.toHaveBeenCalled();
+  });
+
   it('treats whitespace-only values as missing', async () => {
     const res = await POST(makeRequest({ email: '  ', subject: '\t', message: '\n' }));
 
@@ -77,6 +98,74 @@ describe('POST /api/contact', () => {
     expect(Object.keys(json.errors)).toEqual(
       expect.arrayContaining(['email', 'subject', 'message']),
     );
+  });
+
+  // ── reCAPTCHA ─────────────────────────────────────────────────────────
+  it('skips reCAPTCHA verification when RECAPTCHA_SECRET_KEY is not set', async () => {
+    mockPostMail.mockResolvedValue(undefined);
+
+    const res = await POST(makeRequest(validBody));
+
+    expect(res.status).toBe(200);
+    expect(mockPostMail).toHaveBeenCalled();
+  });
+
+  it('returns 400 when RECAPTCHA_SECRET_KEY is set but token is missing', async () => {
+    vi.stubEnv('RECAPTCHA_SECRET_KEY', 'secret');
+
+    const res = await POST(makeRequest(validBody));
+
+    expect(res.status).toBe(400);
+    expect(mockPostMail).not.toHaveBeenCalled();
+  });
+
+  it('returns 400 when reCAPTCHA verification fails (low score)', async () => {
+    vi.stubEnv('RECAPTCHA_SECRET_KEY', 'secret');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true, score: 0.2 }),
+      }),
+    );
+
+    const res = await POST(makeRequest({ ...validBody, recaptchaToken: 'token' }));
+
+    expect(res.status).toBe(400);
+    expect(mockPostMail).not.toHaveBeenCalled();
+  });
+
+  it('returns 400 when reCAPTCHA verification returns success=false', async () => {
+    vi.stubEnv('RECAPTCHA_SECRET_KEY', 'secret');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: false, score: 0.9 }),
+      }),
+    );
+
+    const res = await POST(makeRequest({ ...validBody, recaptchaToken: 'token' }));
+
+    expect(res.status).toBe(400);
+    expect(mockPostMail).not.toHaveBeenCalled();
+  });
+
+  it('proceeds when reCAPTCHA score meets threshold', async () => {
+    vi.stubEnv('RECAPTCHA_SECRET_KEY', 'secret');
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true, score: 0.8 }),
+      }),
+    );
+    mockPostMail.mockResolvedValue(undefined);
+
+    const res = await POST(makeRequest({ ...validBody, recaptchaToken: 'token' }));
+
+    expect(res.status).toBe(200);
+    expect(mockPostMail).toHaveBeenCalled();
   });
 
   // ── Success ──────────────────────────────────────────────────────────
