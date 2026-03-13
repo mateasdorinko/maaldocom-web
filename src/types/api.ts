@@ -12,5 +12,9 @@ export type {
   GetMediaResponse,
   GetMediaAlbumResponse,
   GetMediaAlbumDetailResponse,
+  GetWritingResponse,
+  GetWritingDetailResponse,
+  GetWritingTagResponse,
+  GetCommentResponse,
   PostMailRequest,
 } from '@/server/api/generated/models';

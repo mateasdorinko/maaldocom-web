@@ -81,11 +81,40 @@ export default async function TagDetailPage({ params }: PageProps) {
           >
             {tag.mediaAlbums.map((album) => (
               <ListItem key={album.mediaAlbumId} disablePadding>
-                <ListItemButton
-                  href={`/media-albums/${album.urlFriendlyName}`}
-                  sx={{ borderRadius: 1 }}
-                >
+                <ListItemButton href={`/media-albums/${album.slug}`} sx={{ borderRadius: 1 }}>
                   <ListItemText primary={album.name} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </>
+      )}
+
+      {tag.writings && tag.writings.length > 0 && (
+        <>
+          <Typography
+            variant="h6"
+            component="h2"
+            gutterBottom
+            sx={{ mt: 3, fontWeight: 500, color: 'tertiary.main' }}
+          >
+            Writings
+          </Typography>
+          <List
+            disablePadding
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(4, 1fr)',
+              },
+            }}
+          >
+            {tag.writings.map((writing) => (
+              <ListItem key={writing.writingId} disablePadding>
+                <ListItemButton href={`/writings/${writing.slug}`} sx={{ borderRadius: 1 }}>
+                  <ListItemText primary={writing.title} />
                 </ListItemButton>
               </ListItem>
             ))}
@@ -117,7 +146,7 @@ export default async function TagDetailPage({ params }: PageProps) {
             {tag.media.map((m) => (
               <ListItem key={m.mediaId} disablePadding>
                 <ListItemButton
-                  href={`/media-albums/${m.mediaAlbumUrlFriendlyName}/media/${m.mediaId}`}
+                  href={`/media-albums/${m.mediaAlbumSlug}/media/${m.mediaId}`}
                   sx={{ borderRadius: 1 }}
                 >
                   <ListItemText primary={m.name} secondary={m.mediaAlbumName} />

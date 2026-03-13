@@ -17,7 +17,7 @@ interface PageProps {
 
 async function fetchAlbum(slug: string): Promise<GetMediaAlbumDetailResponse | null> {
   try {
-    const { data } = await mediaAlbumsApi.getMediaAlbumByName(slug);
+    const { data } = await mediaAlbumsApi.getMediaAlbumBySlug(slug);
     return data;
   } catch (error) {
     const { status } = mapApiError(error);
@@ -67,8 +67,8 @@ export default async function MediaDeepLinkPage({ params }: PageProps) {
   if (!album) notFound();
 
   // Redirect to canonical URL if slug is a GUID
-  if (album.urlFriendlyName && album.urlFriendlyName !== urlfriendlyname) {
-    redirect(`/media-albums/${album.urlFriendlyName}/media/${mediaId}`);
+  if (album.slug && album.slug !== urlfriendlyname) {
+    redirect(`/media-albums/${album.slug}/media/${mediaId}`);
   }
 
   const otherAlbums = allAlbums.filter((a) => a.id !== album.id);
@@ -89,7 +89,7 @@ export default async function MediaDeepLinkPage({ params }: PageProps) {
               {otherAlbums.map((a) => (
                 <ListItem key={a.id} disablePadding>
                   <ListItemButton
-                    href={`/media-albums/${a.urlFriendlyName}`}
+                    href={`/media-albums/${a.slug}`}
                     sx={{ borderRadius: 1, py: 0.5 }}
                   >
                     <Typography variant="body2" color="text.primary" sx={{ fontSize: '0.875rem' }}>
@@ -126,7 +126,7 @@ export default async function MediaDeepLinkPage({ params }: PageProps) {
           viewerHref: resolveMediaUrl(m.viewerHref),
           href: resolveMediaUrl(m.href),
         }))}
-        albumUrlFriendlyName={album.urlFriendlyName ?? urlfriendlyname}
+        albumUrlFriendlyName={album.slug ?? urlfriendlyname}
         initialMediaId={mediaId}
       />
     </SecondaryLayout>
