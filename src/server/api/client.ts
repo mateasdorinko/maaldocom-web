@@ -23,7 +23,7 @@ function getBaseURL(): string {
 export const apiClient: AxiosInstance = axios.create({
   // Set a placeholder baseURL so the generated client uses relative paths at request build time.
   // The interceptor below overrides this with the real API_BASE_URL per-request.
-  baseURL: 'http://placeholder',
+  baseURL: 'https://placeholder',
   timeout: 15_000,
   headers: {
     Accept: 'application/json',
@@ -39,7 +39,7 @@ apiClient.interceptors.request.use((config) => {
 /** Authenticated Axios instance that attaches a client credentials token */
 export const authenticatedApiClient: AxiosInstance = axios.create({
   // Same placeholder baseURL pattern as apiClient above.
-  baseURL: 'http://placeholder',
+  baseURL: 'https://placeholder',
   timeout: 15_000,
   headers: {
     Accept: 'application/json',
