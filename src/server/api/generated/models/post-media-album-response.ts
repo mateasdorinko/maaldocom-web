@@ -13,6 +13,13 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+// May contain unused imports in some cases
+// @ts-ignore
+import type { BaseModel } from './base-model';
+
+/**
+ * @type PostMediaAlbumResponse
+ */
+export type PostMediaAlbumResponse = BaseModel;
+
+

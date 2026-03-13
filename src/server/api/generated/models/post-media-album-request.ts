@@ -13,6 +13,16 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+// May contain unused imports in some cases
+// @ts-ignore
+import type { PostMediaRequest } from './post-media-request';
+
+export interface PostMediaAlbumRequest {
+    'name'?: string | null;
+    'slug'?: string | null;
+    'created'?: string;
+    'description'?: string | null;
+    'tags'?: Array<string>;
+    'media'?: Array<PostMediaRequest>;
+}
+

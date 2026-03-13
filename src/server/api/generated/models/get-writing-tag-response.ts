@@ -13,6 +13,11 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+export interface GetWritingTagResponse {
+    'writingId'?: string;
+    'title'?: string | null;
+    'slug'?: string | null;
+    'href'?: string | null;
+}
+

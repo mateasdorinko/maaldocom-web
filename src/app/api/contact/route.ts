@@ -92,7 +92,7 @@ export async function POST(request: Request) {
     }
 
     // Forward to upstream API
-    await new SystemApi(authenticatedApiClient).postMail({
+    await new SystemApi(undefined, undefined, authenticatedApiClient).postMail({
       from: body.email!.trim(),
       subject: body.subject!.trim(),
       body: body.message!.trim(),

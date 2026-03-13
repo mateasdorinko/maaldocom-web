@@ -13,6 +13,10 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+export interface GetCommentResponse {
+    'author'?: string | null;
+    'body'?: string | null;
+    'created'?: string;
+}
+

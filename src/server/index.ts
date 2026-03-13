@@ -12,8 +12,10 @@ export {
   knowledgeApi,
   tagsApi,
   mediaAlbumsApi,
+  writingsApi,
   SystemApi,
   resolveMediaUrl,
+  resolveBlobUrl,
   mapApiError,
 } from './api/client';
 

@@ -14,6 +14,12 @@ const apiBaseUrl = process.env.API_BASE_URL;
 const devMediaOrigin =
   apiBaseUrl && !apiBaseUrl.startsWith('https') ? new URL(apiBaseUrl).origin : null;
 
+// In development, BLOB_STORAGE_BASE_URL is typically http://127.0.0.1:10000/...  (Azurite).
+// Extract the origin so the CSP permits images loaded from the local blob emulator.
+const blobBaseUrl = process.env.BLOB_STORAGE_BASE_URL;
+const devBlobOrigin =
+  blobBaseUrl && !blobBaseUrl.startsWith('https') ? new URL(blobBaseUrl).origin : null;
+
 // Content-Security-Policy — permissive baseline.
 // MUI emotion requires 'unsafe-inline' for style-src.
 // Next.js requires 'unsafe-inline' for script-src (no nonce support yet in
@@ -25,7 +31,7 @@ const cspDirectives = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com`,
   `style-src 'self' 'unsafe-inline'`,
-  `img-src 'self' data: blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}${devMediaOrigin ? ` ${devMediaOrigin}` : ''}`,
+  `img-src 'self' data: blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')} https://*.blob.core.windows.net${devMediaOrigin ? ` ${devMediaOrigin}` : ''}${devBlobOrigin ? ` ${devBlobOrigin}` : ''}`,
   `media-src 'self' blob: ${apiMediaHosts.map((h) => `https://${h}`).join(' ')}${devMediaOrigin ? ` ${devMediaOrigin}` : ''}`,
   `font-src 'self'`,
   `connect-src 'self' https://*.auth0.com`,

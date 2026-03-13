@@ -12,7 +12,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
 
   try {
     // The upstream API handles both GUIDs and url-friendly names on the same path
-    const { data } = await mediaAlbumsApi.getMediaAlbumByName(slug);
+    const { data } = await mediaAlbumsApi.getMediaAlbumBySlug(slug);
     return NextResponse.json(data, {
       headers: {
         'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=60',

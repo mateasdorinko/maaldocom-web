@@ -22,11 +22,13 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import type { GetKnowledgeResponse } from '../models';
+import type { GetWritingDetailResponse } from '../models';
+// @ts-ignore
+import type { GetWritingResponse } from '../models';
 /**
- * KnowledgeApi - axios parameter creator
+ * WritingsApi - axios parameter creator
  */
-export const KnowledgeApiAxiosParamCreator = function (configuration?: Configuration) {
+export const WritingsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -34,10 +36,10 @@ export const KnowledgeApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getKnowledgeById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getWritingById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('getKnowledgeById', 'id', id)
-            const localVarPath = `/knowledge/{id}`
+            assertParamExists('getWritingById', 'id', id)
+            const localVarPath = `/writings/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -63,11 +65,15 @@ export const KnowledgeApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRandomKnowledge: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/knowledge/random`;
+        getWritingBySlug: async (slug: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'slug' is not null or undefined
+            assertParamExists('getWritingBySlug', 'slug', slug)
+            const localVarPath = `/writings/{slug}`
+                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -95,8 +101,8 @@ export const KnowledgeApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listKnowledge: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/knowledge`;
+        listWritings: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/writings`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -123,10 +129,10 @@ export const KnowledgeApiAxiosParamCreator = function (configuration?: Configura
 };
 
 /**
- * KnowledgeApi - functional programming interface
+ * WritingsApi - functional programming interface
  */
-export const KnowledgeApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = KnowledgeApiAxiosParamCreator(configuration)
+export const WritingsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WritingsApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -134,10 +140,22 @@ export const KnowledgeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getKnowledgeById(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetKnowledgeResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getKnowledgeById(id, options);
+        async getWritingById(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetWritingDetailResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWritingById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['KnowledgeApi.getKnowledgeById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WritingsApi.getWritingById']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWritingBySlug(slug: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetWritingDetailResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWritingBySlug(slug, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WritingsApi.getWritingBySlug']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -145,31 +163,20 @@ export const KnowledgeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRandomKnowledge(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetKnowledgeResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRandomKnowledge(options);
+        async listWritings(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetWritingResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listWritings(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['KnowledgeApi.getRandomKnowledge']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listKnowledge(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetKnowledgeResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listKnowledge(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['KnowledgeApi.listKnowledge']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['WritingsApi.listWritings']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * KnowledgeApi - factory interface
+ * WritingsApi - factory interface
  */
-export const KnowledgeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = KnowledgeApiFp(configuration)
+export const WritingsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WritingsApiFp(configuration)
     return {
         /**
          * 
@@ -177,40 +184,51 @@ export const KnowledgeApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getKnowledgeById(id: string, options?: RawAxiosRequestConfig): AxiosPromise<GetKnowledgeResponse> {
-            return localVarFp.getKnowledgeById(id, options).then((request) => request(axios, basePath));
+        getWritingById(id: string, options?: RawAxiosRequestConfig): AxiosPromise<GetWritingDetailResponse> {
+            return localVarFp.getWritingById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWritingBySlug(slug: string, options?: RawAxiosRequestConfig): AxiosPromise<GetWritingDetailResponse> {
+            return localVarFp.getWritingBySlug(slug, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRandomKnowledge(options?: RawAxiosRequestConfig): AxiosPromise<GetKnowledgeResponse> {
-            return localVarFp.getRandomKnowledge(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listKnowledge(options?: RawAxiosRequestConfig): AxiosPromise<Array<GetKnowledgeResponse>> {
-            return localVarFp.listKnowledge(options).then((request) => request(axios, basePath));
+        listWritings(options?: RawAxiosRequestConfig): AxiosPromise<Array<GetWritingResponse>> {
+            return localVarFp.listWritings(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * KnowledgeApi - object-oriented interface
+ * WritingsApi - object-oriented interface
  */
-export class KnowledgeApi extends BaseAPI {
+export class WritingsApi extends BaseAPI {
     /**
      * 
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getKnowledgeById(id: string, options?: RawAxiosRequestConfig) {
-        return KnowledgeApiFp(this.configuration).getKnowledgeById(id, options).then((request) => request(this.axios, this.basePath));
+    public getWritingById(id: string, options?: RawAxiosRequestConfig) {
+        return WritingsApiFp(this.configuration).getWritingById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} slug 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getWritingBySlug(slug: string, options?: RawAxiosRequestConfig) {
+        return WritingsApiFp(this.configuration).getWritingBySlug(slug, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -218,17 +236,8 @@ export class KnowledgeApi extends BaseAPI {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public getRandomKnowledge(options?: RawAxiosRequestConfig) {
-        return KnowledgeApiFp(this.configuration).getRandomKnowledge(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    public listKnowledge(options?: RawAxiosRequestConfig) {
-        return KnowledgeApiFp(this.configuration).listKnowledge(options).then((request) => request(this.axios, this.basePath));
+    public listWritings(options?: RawAxiosRequestConfig) {
+        return WritingsApiFp(this.configuration).listWritings(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

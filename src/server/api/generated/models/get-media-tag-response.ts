@@ -13,6 +13,13 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+export interface GetMediaTagResponse {
+    'mediaAlbumId'?: string;
+    'mediaAlbumName'?: string | null;
+    'mediaAlbumSlug'?: string | null;
+    'mediaId'?: string;
+    'name'?: string | null;
+    'href'?: string | null;
+}
+

@@ -13,6 +13,17 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+export interface GetRuntimeInfoResponse {
+    'aspNetCoreEnvironment'?: string | null;
+    'clrVersion'?: string | null;
+    'is64BitProcess'?: boolean;
+    'is64BitSystem'?: boolean;
+    'machineName'?: string | null;
+    'osVersion'?: string | null;
+    'processId'?: number;
+    'processorCount'?: number;
+    'processPath'?: string | null;
+    'user'?: string | null;
+}
+

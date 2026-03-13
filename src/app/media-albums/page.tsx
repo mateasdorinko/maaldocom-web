@@ -105,7 +105,7 @@ export default async function MediaAlbumsPage() {
         >
           {albums.map((album) => (
             <Card key={album.id} sx={{ display: 'flex', flexDirection: 'column' }}>
-              <CardActionArea href={`/media-albums/${album.urlFriendlyName}`} sx={{ flex: 1 }}>
+              <CardActionArea href={`/media-albums/${album.slug}`} sx={{ flex: 1 }}>
                 {resolveMediaUrl(album.thumbHref) ? (
                   <CardMedia
                     component="img"

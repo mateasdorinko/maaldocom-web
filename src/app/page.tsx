@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import SecondaryLayout from '@/components/SecondaryLayout';
 import RandomKnowledge from '@/components/RandomKnowledge';
-import { tagsApi } from '@/server';
+import { tagsApi, resolveBlobUrl } from '@/server';
 import type { GetTagResponse } from '@/types/api';
 
 export const metadata: Metadata = {
@@ -39,6 +39,7 @@ const websiteJsonLd = {
 };
 
 export default async function HomePage() {
+  const famSrc = resolveBlobUrl('/images/fam.jpg') ?? '/images/fam.jpg';
   const tags = (await fetchTags()).filter(
     (tag) => tag.count != null && tag.count > 0 && tag.name !== 'hotshots',
   );
@@ -103,7 +104,7 @@ export default async function HomePage() {
         {/* Desktop: float right alongside paragraphs */}
         <Box
           component="img"
-          src="/images/fam.jpg"
+          src={famSrc}
           alt="Family"
           sx={{
             display: { xs: 'none', sm: 'block' },
@@ -135,7 +136,7 @@ export default async function HomePage() {
         {/* Mobile: below paragraphs */}
         <Box
           component="img"
-          src="/images/fam.jpg"
+          src={famSrc}
           alt="Family"
           sx={{
             display: { xs: 'block', sm: 'none' },

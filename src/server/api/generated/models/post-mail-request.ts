@@ -13,6 +13,10 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+export interface PostMailRequest {
+    'from'?: string;
+    'subject'?: string;
+    'body'?: string;
+}
+

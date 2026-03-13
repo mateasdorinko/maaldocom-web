@@ -13,6 +13,12 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./models";
+
+export interface PostMediaRequest {
+    'fileName'?: string | null;
+    'description'?: string | null;
+    'sizeInBytes'?: number;
+    'fileExtension'?: string | null;
+    'tags'?: Array<string>;
+}
+
