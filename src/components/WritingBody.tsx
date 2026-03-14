@@ -52,9 +52,8 @@ const components: Components = {
     </MuiLink>
   ),
   img: ({ src, alt }) => {
-    const decoded = typeof src === 'string' ? decodeURIComponent(src) : src;
-    const [rawSrc, widthStr] =
-      typeof decoded === 'string' ? decoded.split('|') : [decoded, undefined];
+    const decoded = typeof src === 'string' ? decodeURIComponent(src) : undefined;
+    const [rawSrc, widthStr] = decoded ? decoded.split('|') : [undefined, undefined];
     const resolvedSrc = rawSrc != null ? (resolveBlobUrl(rawSrc) ?? rawSrc) : undefined;
     const width = widthStr ? parseInt(widthStr, 10) : undefined;
     return (
