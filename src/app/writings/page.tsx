@@ -57,7 +57,11 @@ export default async function WritingsPage() {
                   color="inherit"
                   sx={{ display: 'block', mb: 0.5 }}
                 >
-                  <Typography variant="h5" component="h2" sx={{ fontWeight: 600 }}>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    sx={{ fontWeight: 600, color: 'primary.light' }}
+                  >
                     {writing.title}
                   </Typography>
                 </Link>
