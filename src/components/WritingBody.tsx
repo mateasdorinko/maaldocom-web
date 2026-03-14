@@ -52,13 +52,23 @@ const components: Components = {
     </MuiLink>
   ),
   img: ({ src, alt }) => {
-    const resolvedSrc = typeof src === 'string' ? (resolveBlobUrl(src) ?? src) : undefined;
+    const decoded = typeof src === 'string' ? decodeURIComponent(src) : src;
+    const [rawSrc, widthStr] =
+      typeof decoded === 'string' ? decoded.split('|') : [decoded, undefined];
+    const resolvedSrc = rawSrc != null ? (resolveBlobUrl(rawSrc) ?? rawSrc) : undefined;
+    const width = widthStr ? parseInt(widthStr, 10) : undefined;
     return (
       <Box
         component="img"
         src={resolvedSrc}
         alt={alt ?? ''}
-        sx={{ maxWidth: '100%', height: 'auto', borderRadius: 1, my: 1 }}
+        sx={{
+          maxWidth: '100%',
+          height: 'auto',
+          borderRadius: 1,
+          my: 1,
+          ...(width ? { width } : {}),
+        }}
       />
     );
   },
