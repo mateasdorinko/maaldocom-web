@@ -31,7 +31,7 @@ const components: Components = {
       variant="subtitle1"
       component="h4"
       gutterBottom
-      sx={{ mt: 1.5, fontWeight: 600, color: 'text.primary' }}
+      sx={{ mt: 1.5, fontWeight: 600, color: 'primary.main' }}
     >
       {children}
     </Typography>
