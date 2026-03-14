@@ -113,9 +113,14 @@ const components: Components = {
 export default function WritingBody({ body }: WritingBodyProps) {
   if (!body) return null;
 
+  const normalizedBody = body
+    .split('\n')
+    .map((line) => line.trimStart())
+    .join('\n');
+
   return (
     <Box sx={{ mt: 2 }}>
-      <ReactMarkdown components={components}>{body}</ReactMarkdown>
+      <ReactMarkdown components={components}>{normalizedBody}</ReactMarkdown>
     </Box>
   );
 }
