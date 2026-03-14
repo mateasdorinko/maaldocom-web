@@ -25,7 +25,9 @@
       "WebFetch(domain:github.com)",
       "Bash(npm audit:*)",
       "Bash(gh run:*)",
-      "Bash(git -C /home/maaldo/repos/maaldocom-web status --porcelain)"
+      "Bash(git -C /home/maaldo/repos/maaldocom-web status --porcelain)",
+      "Bash(gh release:*)",
+      "Bash(gh api:*)"
     ]
   }
 }
