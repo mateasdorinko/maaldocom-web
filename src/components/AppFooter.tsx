@@ -54,7 +54,7 @@ const socialLinks = [
   },
   {
     label: 'Facebook',
-    href: 'https://www.facebook.com/MateasDorinko',
+    href: 'https://www.facebook.com/mateasdorinko',
     icon: <FacebookIcon />,
     hoverColor: '#1877F2',
   },
