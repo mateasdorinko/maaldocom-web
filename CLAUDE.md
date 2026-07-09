@@ -26,7 +26,7 @@ Next.js 16 App Router with TypeScript strict mode, Material UI, and a Backend-fo
 All code under `src/server/` uses `import 'server-only'` and must never be imported by client components. This includes:
 - `src/server/api/client.ts` — Axios wrapper configured with `API_BASE_URL`, timeouts, error mapping. Exports two instances: `apiClient` (unauthenticated, for public endpoints) and `authenticatedApiClient` (attaches a client credentials Bearer token via request interceptor)
 - `src/server/api/token.ts` — OAuth2 client credentials flow against Auth0 with in-memory token caching
-- `src/server/api/generated/` — Auto-generated TypeScript Axios client from OpenAPI spec (committed to source control, not generated in CI)
+- `src/server/api/generated/` — Auto-generated TypeScript Axios client from OpenAPI spec (committed to source control, not generated in CI). Excluded from SonarCloud analysis via `.sonarcloud.properties` — its per-method boilerplate isn't hand-written code and shouldn't count against the duplication quality gate.
 
 ### BFF layer (`src/app/api/`)
 
@@ -69,6 +69,7 @@ OTLP exporter activated when `OTEL_EXPORTER_OTLP_ENDPOINT` is set. All config vi
 - `RandomKnowledge` — Client component, SWR polling `/api/knowledge/random` every 10s
 - `ContactForm` — Client component with client-side validation and honeypot
 - `MediaAlbumViewer` — Client component, thumbnail grid + carousel modal
+- `AlbumsSidebar`, `AlbumHeader` — Shared between the media album detail page and its media deep-link page (`src/app/media-albums/[urlfriendlyname]/`)
 
 ## Hard constraints
 
