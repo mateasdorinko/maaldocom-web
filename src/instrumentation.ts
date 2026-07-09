@@ -31,7 +31,7 @@ export async function register() {
       metricReader: new PeriodicExportingMetricReader({
         exporter: new OTLPMetricExporter(),
       }),
-      logRecordProcessors: [new BatchLogRecordProcessor(new OTLPLogExporter())],
+      logRecordProcessors: [new BatchLogRecordProcessor({ exporter: new OTLPLogExporter() })],
       instrumentations: [new HttpInstrumentation()],
     });
 
