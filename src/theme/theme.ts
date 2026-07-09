@@ -2,90 +2,39 @@
 
 import { createTheme } from '@mui/material/styles';
 
+interface ColorSet {
+  main: string;
+  light: string;
+  dark: string;
+  contrastText: string;
+}
+
+function colorSet(main: string, light: string, dark: string, contrastText: string): ColorSet {
+  return { main, light, dark, contrastText };
+}
+
 // Palette tokens generated from Material Design palette tool
 const lightPalette = {
   mode: 'light' as const,
-  primary: {
-    main: '#2962ff',
-    light: '#6280ff',
-    dark: '#0022d9',
-    contrastText: '#FFFFFF',
-  },
-  secondary: {
-    main: '#5b29ff',
-    light: '#9871ff',
-    dark: '#301cf0',
-    contrastText: '#FFFFFF',
-  },
-  error: {
-    main: '#ff2962',
-    light: '#ff6892',
-    dark: '#d71e5c',
-    contrastText: '#FFFFFF',
-  },
-  warning: {
-    main: '#ffc629',
-    light: '#ffd14f',
-    dark: '#feaf07',
-    contrastText: '#000000',
-  },
-  info: {
-    main: '#00c2ff',
-    light: '#29cdff',
-    dark: '#0083cc',
-    contrastText: '#000000',
-  },
-  background: {
-    default: '#FAF8FF',
-    paper: '#F4F3FA',
-  },
-  text: {
-    primary: '#1A1B21',
-    secondary: '#45464F',
-  },
+  primary: colorSet('#2962ff', '#6280ff', '#0022d9', '#FFFFFF'),
+  secondary: colorSet('#5b29ff', '#9871ff', '#301cf0', '#FFFFFF'),
+  error: colorSet('#ff2962', '#ff6892', '#d71e5c', '#FFFFFF'),
+  warning: colorSet('#ffc629', '#ffd14f', '#feaf07', '#000000'),
+  info: colorSet('#00c2ff', '#29cdff', '#0083cc', '#000000'),
+  background: { default: '#FAF8FF', paper: '#F4F3FA' },
+  text: { primary: '#1A1B21', secondary: '#45464F' },
   divider: '#C6C5D0',
 };
 
 const darkPalette = {
   mode: 'dark' as const,
-  primary: {
-    main: '#96a4fe',
-    light: '#c2c8fe',
-    dark: '#003bf0',
-    contrastText: '#0001c0',
-  },
-  secondary: {
-    main: '#b89cff',
-    light: '#d5c4fe',
-    dark: '#4b25f8',
-    contrastText: '#0000e6',
-  },
-  error: {
-    main: '#ff94b2',
-    light: '#ffbed0',
-    dark: '#c31859',
-    contrastText: '#9f0b53',
-  },
-  warning: {
-    main: '#ffd14f',
-    light: '#ffdd81',
-    dark: '#fd8b09',
-    contrastText: '#000000',
-  },
-  info: {
-    main: '#76dbfe',
-    light: '#afeafe',
-    dark: '#0094e0',
-    contrastText: '#0062ab',
-  },
-  background: {
-    default: '#121318',
-    paper: '#1D1E24',
-  },
-  text: {
-    primary: '#E3E1E9',
-    secondary: '#C6C5D0',
-  },
+  primary: colorSet('#96a4fe', '#c2c8fe', '#003bf0', '#0001c0'),
+  secondary: colorSet('#b89cff', '#d5c4fe', '#4b25f8', '#0000e6'),
+  error: colorSet('#ff94b2', '#ffbed0', '#c31859', '#9f0b53'),
+  warning: colorSet('#ffd14f', '#ffdd81', '#fd8b09', '#000000'),
+  info: colorSet('#76dbfe', '#afeafe', '#0094e0', '#0062ab'),
+  background: { default: '#121318', paper: '#1D1E24' },
+  text: { primary: '#E3E1E9', secondary: '#C6C5D0' },
   divider: '#46464F',
 };
 
