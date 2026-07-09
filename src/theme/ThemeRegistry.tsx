@@ -25,8 +25,12 @@ export default function ThemeRegistry({ children }: { children: React.ReactNode 
   const [mode, setMode] = React.useState<ThemeMode>('dark');
 
   React.useEffect(() => {
+    // Deferred to an effect (not a lazy useState initializer) so the client's
+    // first hydration pass matches the server-rendered 'dark' default; reading
+    // localStorage during the initializer would mismatch and trigger a hydration warning.
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'light' || stored === 'dark') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMode(stored);
     } else if (prefersLight) {
       setMode('light');
