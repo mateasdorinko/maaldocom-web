@@ -168,10 +168,17 @@ function buildTheme(mode: 'light' | 'dark') {
       components: {
         MuiButton: {
           styleOverrides: {
-            containedPrimary: {
-              '&:hover': {
-                color: '#c2c8fe',
-              },
+            root: {
+              variants: [
+                {
+                  props: { variant: 'contained', color: 'primary' },
+                  style: {
+                    '&:hover': {
+                      color: '#c2c8fe',
+                    },
+                  },
+                },
+              ],
             },
           },
         },

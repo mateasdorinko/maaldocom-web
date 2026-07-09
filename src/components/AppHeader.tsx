@@ -177,14 +177,14 @@ export default function AppHeader() {
                   <ListItemButton component="a" href="/auth/logout">
                     <ListItemText
                       primary="Sign out"
-                      slotProps={{ primary: { fontSize: '0.85rem' } }}
+                      slotProps={{ primary: { sx: { fontSize: '0.85rem' } } }}
                     />
                   </ListItemButton>
                 ) : (
                   <ListItemButton component="a" href="/auth/login">
                     <ListItemText
                       primary="Sign in"
-                      slotProps={{ primary: { fontSize: '0.85rem' } }}
+                      slotProps={{ primary: { sx: { fontSize: '0.85rem' } } }}
                     />
                   </ListItemButton>
                 ))}
