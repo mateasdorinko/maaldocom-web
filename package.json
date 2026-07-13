@@ -31,7 +31,7 @@
     "@opentelemetry/instrumentation-http": "^0.220.0",
     "@opentelemetry/resources": "^2.6.0",
     "@opentelemetry/sdk-node": "^0.220.0",
-    "@opentelemetry/semantic-conventions": "^1.40.0",
+    "@opentelemetry/semantic-conventions": "^1.43.0",
     "axios": "^1.13.6",
     "next": "16.2.10",
     "react": "^19.2.4",
@@ -55,7 +55,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "jsdom": "^29.0.0",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.5",
     "typescript": "^5",
     "vitest": "^4.0.18"
   }
