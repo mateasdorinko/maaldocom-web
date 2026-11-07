@@ -40,7 +40,7 @@ export const TagsApiAxiosParamCreator = function (configuration?: Configuration)
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getTagById', 'id', id)
             const localVarPath = `/tags/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+                .replace('{id}', encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -73,7 +73,7 @@ export const TagsApiAxiosParamCreator = function (configuration?: Configuration)
             // verify required parameter 'name' is not null or undefined
             assertParamExists('getTagByName', 'name', name)
             const localVarPath = `/tags/{name}`
-                .replace(`{${"name"}}`, encodeURIComponent(String(name)));
+                .replace('{name}', encodeURIComponent(String(name)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

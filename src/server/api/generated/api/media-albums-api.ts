@@ -75,7 +75,7 @@ export const MediaAlbumsApiAxiosParamCreator = function (configuration?: Configu
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getMediaAlbumById', 'id', id)
             const localVarPath = `/media-albums/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+                .replace('{id}', encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -108,7 +108,7 @@ export const MediaAlbumsApiAxiosParamCreator = function (configuration?: Configu
             // verify required parameter 'slug' is not null or undefined
             assertParamExists('getMediaAlbumBySlug', 'slug', slug)
             const localVarPath = `/media-albums/{slug}`
-                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+                .replace('{slug}', encodeURIComponent(String(slug)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -147,9 +147,9 @@ export const MediaAlbumsApiAxiosParamCreator = function (configuration?: Configu
             // verify required parameter 'mediaType' is not null or undefined
             assertParamExists('getMediaById', 'mediaType', mediaType)
             const localVarPath = `/media-albums/{mediaAlbumId}/media/{mediaId}/{mediaType}`
-                .replace(`{${"mediaAlbumId"}}`, encodeURIComponent(String(mediaAlbumId)))
-                .replace(`{${"mediaId"}}`, encodeURIComponent(String(mediaId)))
-                .replace(`{${"mediaType"}}`, encodeURIComponent(String(mediaType)));
+                .replace('{mediaAlbumId}', encodeURIComponent(String(mediaAlbumId)))
+                .replace('{mediaId}', encodeURIComponent(String(mediaId)))
+                .replace('{mediaType}', encodeURIComponent(String(mediaType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

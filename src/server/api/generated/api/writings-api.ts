@@ -40,7 +40,7 @@ export const WritingsApiAxiosParamCreator = function (configuration?: Configurat
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getWritingById', 'id', id)
             const localVarPath = `/writings/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+                .replace('{id}', encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -73,7 +73,7 @@ export const WritingsApiAxiosParamCreator = function (configuration?: Configurat
             // verify required parameter 'slug' is not null or undefined
             assertParamExists('getWritingBySlug', 'slug', slug)
             const localVarPath = `/writings/{slug}`
-                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+                .replace('{slug}', encodeURIComponent(String(slug)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

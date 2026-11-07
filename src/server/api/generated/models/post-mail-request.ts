@@ -15,8 +15,8 @@
 
 
 export interface PostMailRequest {
-    'from'?: string;
-    'subject'?: string;
-    'body'?: string;
+    'from': string;
+    'subject': string;
+    'body': string;
 }
 

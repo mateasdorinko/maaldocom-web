@@ -42,7 +42,7 @@ export class BaseAPI {
             this.basePath = configuration.basePath ?? basePath;
         }
     }
-}
+};
 
 export class RequiredError extends Error {
     constructor(public field: string, msg?: string) {
