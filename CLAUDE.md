@@ -90,4 +90,4 @@ Vitest + React Testing Library with jsdom. Tests go in `src/**/*.test.{ts,tsx}`.
 
 ## Containerization
 
-Multi-stage Dockerfile using `node:24-alpine` (CI also runs Node 24). Uses Next.js standalone output. Production port is 8080.
+Multi-stage Dockerfile using `node:26-alpine` (CI also runs Node 26). Uses Next.js standalone output. Production port is 8080.

@@ -19,7 +19,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  NODE_VERSION: '24'
+  NODE_VERSION: '26'
 
 jobs:
   build-and-test:
