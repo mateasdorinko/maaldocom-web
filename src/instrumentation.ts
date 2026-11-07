@@ -20,7 +20,7 @@ export async function register() {
     const { BatchLogRecordProcessor } = await import('@opentelemetry/sdk-logs');
     const { resourceFromAttributes } = await import('@opentelemetry/resources');
     const { ATTR_SERVICE_NAME } = await import('@opentelemetry/semantic-conventions');
-    const { logs, SeverityNumber } = await import('@opentelemetry/api-logs');
+    const { logs, SeverityNumber } = await import('@opentelemetry/api');
     const { HttpInstrumentation } = await import('@opentelemetry/instrumentation-http');
 
     const sdk = new NodeSDK({
@@ -28,9 +28,11 @@ export async function register() {
         [ATTR_SERVICE_NAME]: process.env.OTEL_SERVICE_NAME ?? 'maaldo-com-web',
       }),
       traceExporter: new OTLPTraceExporter(),
-      metricReader: new PeriodicExportingMetricReader({
-        exporter: new OTLPMetricExporter(),
-      }),
+      metricReaders: [
+        new PeriodicExportingMetricReader({
+          exporter: new OTLPMetricExporter(),
+        }),
+      ],
       logRecordProcessors: [new BatchLogRecordProcessor({ exporter: new OTLPLogExporter() })],
       instrumentations: [new HttpInstrumentation()],
     });
