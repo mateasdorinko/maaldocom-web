@@ -27,6 +27,11 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    ignore:
+      # @types/node tracks the Node runtime major (node:24-alpine / CI Node 24).
+      # Bump it deliberately alongside the runtime, not on every Node release.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       minor-and-patch:
         update-types:
