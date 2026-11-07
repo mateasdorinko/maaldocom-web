@@ -82,7 +82,7 @@ OTLP exporter activated when `OTEL_EXPORTER_OTLP_ENDPOINT` is set. All config vi
 
 ## Path alias
 
-`@/*` maps to `./src/*` (configured in both tsconfig.json and vitest.config.ts).
+`@/*` maps to `./src/*` (configured in both tsconfig.json and vitest.config.mts).
 
 ## Testing
 
